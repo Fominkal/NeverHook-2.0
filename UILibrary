@@ -1,0 +1,67 @@
+local SimpleUILib = {}
+SimpleUILib.__index = SimpleUILib
+
+
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local TweenService = game:GetService("TweenService")
+local UserInputService = game:GetService("UserInputService")
+local LocalPlayer = Players.LocalPlayer
+
+
+-- helpers
+local function new(class, props)
+local obj = Instance.new(class)
+if props then
+for k,v in pairs(props) do
+if k ~= "Parent" then obj[k] = v end
+end
+if props.Parent then obj.Parent = props.Parent end
+end
+return obj
+end
+
+
+local function safeCall(f, ...)
+local ok, res = pcall(f, ...)
+if not ok then warn("SimpleUILib error:", res) end
+return ok, res
+end
+
+
+-- persistence helpers (optional)
+local function canWrite()
+return type(writefile) == "function" and type(readfile) == "function"
+end
+local function saveFile(path, data)
+if canWrite() then
+pcall(writefile, path, data)
+end
+end
+local function loadFile(path)
+if canWrite() then
+local ok, content = pcall(readfile, path)
+if ok then return content end
+end
+return nil
+end
+
+
+-- default style
+local STYLE = {
+WindowBg = Color3.fromRGB(18,18,18),
+Accent = Color3.fromRGB(0,200,255),
+SectionBg = Color3.fromRGB(15,15,20),
+Text = Color3.fromRGB(255,255,255),
+Muted = Color3.fromRGB(180,180,190),
+}
+
+
+-- create main screengui (shared)
+local mainGUI = Instance.new("ScreenGui")
+mainGUI.Name = "SimpleUILibGUI"
+mainGUI.ResetOnSpawn = false
+mainGUI.Parent = game.CoreGui
+
+
+-- keep track of windows
