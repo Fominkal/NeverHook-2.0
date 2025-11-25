@@ -24,10 +24,10 @@ if v.Name == "By Shaddow" then
 end
 
 if theme == "Normal" then
-theme1 = Color3.fromRGB(32,32,32)
-theme2 = Color3.fromRGB(26,26,26)
-theme3 = Color3.fromRGB(176, 148, 255)
-print("Theme selected: "..theme)
+    theme1 = Color3.fromRGB(32,32,32)
+    theme2 = Color3.fromRGB(26,26,26)
+    theme3 = Color3.fromRGB(176, 148, 255)
+    print("Theme selected: "..theme)
 elseif theme == "Reverse" then
     theme1 = Color3.fromRGB(26,26,26)
     theme2 = Color3.fromRGB(32,32,32)
@@ -36,7 +36,7 @@ elseif theme == "Reverse" then
 elseif theme == "Blood" then
     theme1 = Color3.fromRGB(32,32,32)
     theme2 = Color3.fromRGB(26,26,26)
-    theme3 = Color3.fromRGB(138, 3, 3)
+    theme3 = Color3.fromRGB(255, 255, 255) -- белый
     print("Theme selected: "..theme)
 elseif theme == "Gainsboro" then
     theme1 = Color3.fromRGB(32,32,32)
@@ -57,7 +57,7 @@ elseif theme == "Emerald" then
 elseif theme == "Crimson" then
     theme1 = Color3.fromRGB(32,32,32)
     theme2 = Color3.fromRGB(26,26,26)
-    theme3 = Color3.fromRGB(214, 40, 57)
+    theme3 = Color3.fromRGB(255, 255, 255) -- белый
     print("Theme selected: "..theme)
 elseif theme == "Deep Sea" then
     theme1 = Color3.fromRGB(32,32,32)
@@ -65,6 +65,7 @@ elseif theme == "Deep Sea" then
     theme3 = Color3.fromRGB(40, 81, 214)
     print("Theme selected: "..theme)
 end
+
 
 local Screen = Instance.new("ScreenGui")
 local Top = Instance.new("ImageLabel")
