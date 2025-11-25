@@ -336,6 +336,71 @@ UIListLayout_2.Parent = DropdownContainer
 UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
 end
 
+function lib.checkbox(text, default, callback)
+    local Frame = Instance.new("Frame")
+    Frame.Name = "Checkbox"
+    Frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    Frame.BorderSizePixel = 0
+    Frame.Size = UDim2.new(0, 230, 0, 28)
+    Frame.Parent = currenttab
+
+    local Box = Instance.new("Frame")
+    Box.Name = "Box"
+    Box.Size = UDim2.new(0, 20, 0, 20)
+    Box.Position = UDim2.new(0, 5, 0, 4)
+    Box.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Box.BorderSizePixel = 0
+    Box.Parent = Frame
+
+    local Fill = Instance.new("Frame")
+    Fill.Name = "Fill"
+    Fill.Size = UDim2.new(1, -6, 1, -6)
+    Fill.Position = UDim2.new(0, 3, 0, 3)
+    Fill.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Fill.BorderSizePixel = 0
+    Fill.Visible = default
+    Fill.Parent = Box
+
+    local Label = Instance.new("TextLabel")
+    Label.Name = "Text"
+    Label.BackgroundTransparency = 1
+    Label.Position = UDim2.new(0, 30, 0, 0)
+    Label.Size = UDim2.new(1, -35, 1, 0)
+    Label.Font = Enum.Font.Gotham
+    Label.Text = text
+    Label.TextSize = 13
+    Label.TextXAlignment = Enum.TextXAlignment.Left
+    Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Label.Parent = Frame
+
+    local ClickButton = Instance.new("TextButton")
+    ClickButton.BackgroundTransparency = 1
+    ClickButton.Size = UDim2.new(1, 0, 1, 0)
+    ClickButton.Text = ""
+    ClickButton.Parent = Frame
+
+    local state = default
+
+    local function setState(v)
+        state = v
+        Fill.Visible = v
+
+        pcall(function()
+            callback(v)
+        end)
+    end
+
+    ClickButton.MouseButton1Click:Connect(function()
+        setState(not state)
+    end)
+
+    return {
+        Set = setState,
+        Get = function() return state end
+    }
+end
+
+
 function InsideTab:CreateSlider(text, minvalue, maxvalue, callback)
     text = text or "Slider"
     minvalue = minvalue or 0
