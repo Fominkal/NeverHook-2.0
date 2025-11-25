@@ -36,7 +36,7 @@ elseif theme == "Reverse" then
 elseif theme == "Blood" then
     theme1 = Color3.fromRGB(32,32,32)
     theme2 = Color3.fromRGB(26,26,26)
-    theme3 = Color3.fromRGB(255, 255, 255) -- белый
+    theme3 = Color3.fromRGB(255, 127, 128) -- коралловый
     print("Theme selected: "..theme)
 elseif theme == "Gainsboro" then
     theme1 = Color3.fromRGB(32,32,32)
@@ -57,7 +57,7 @@ elseif theme == "Emerald" then
 elseif theme == "Crimson" then
     theme1 = Color3.fromRGB(32,32,32)
     theme2 = Color3.fromRGB(26,26,26)
-    theme3 = Color3.fromRGB(255, 255, 255) -- белый
+    theme3 = Color3.fromRGB(255, 127, 128) -- коралловый
     print("Theme selected: "..theme)
 elseif theme == "Deep Sea" then
     theme1 = Color3.fromRGB(32,32,32)
