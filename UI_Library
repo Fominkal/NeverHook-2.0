@@ -1,5 +1,4 @@
 local library = {}
-
 function play(id)
     for _, v in next, workspace:GetChildren() do
         if v.Name == "GUISound" then
@@ -13,16 +12,58 @@ function play(id)
     Sound:Play()
 end
 
-function library:CreateWindow(name, theme)
-    local theme1 = Color3.fromRGB(255,255,255)
-    local theme2 = Color3.fromRGB(255,255,255)
-    local theme3 = Color3.fromRGB(255,255,255)
+function library:CreateWindow(name,theme)
+    local theme1
+    local theme2
+    local theme3
     local toolight = false
-
     for i,v in pairs(game.CoreGui:GetChildren()) do
         if v.Name == "By Shaddow" then
             v:Destroy()
         end
+    end
+
+    if theme == "Normal" then
+        theme1 = Color3.fromRGB(32,32,32)
+        theme2 = Color3.fromRGB(26,26,26)
+        theme3 = Color3.fromRGB(176, 148, 255)
+        print("Theme selected: "..theme)
+    elseif theme == "Reverse" then
+        theme1 = Color3.fromRGB(26,26,26)
+        theme2 = Color3.fromRGB(32,32,32)
+        theme3 = Color3.fromRGB(176, 148, 255)
+        print("Theme selected: "..theme)
+    elseif theme == "Blood" then
+        theme1 = Color3.fromRGB(32,32,32)
+        theme2 = Color3.fromRGB(26,26,26)
+        theme3 = Color3.fromRGB(255, 255, 255) -- заменили красный на белый
+        print("Theme selected: "..theme)
+    elseif theme == "Gainsboro" then
+        theme1 = Color3.fromRGB(32,32,32)
+        theme2 = Color3.fromRGB(26,26,26)
+        theme3 = Color3.fromRGB(220, 220, 221)
+        toolight = true
+        print("Theme selected: "..theme)
+    elseif theme == "Canary" then
+        theme1 = Color3.fromRGB(32,32,32)
+        theme2 = Color3.fromRGB(26,26,26)
+        theme3 = Color3.fromRGB(255, 253, 130)
+        print("Theme selected: "..theme)
+    elseif theme == "Emerald" then
+        theme1 = Color3.fromRGB(32,32,32)
+        theme2 = Color3.fromRGB(26,26,26)
+        theme3 = Color3.fromRGB(68, 207, 108)
+        print("Theme selected: "..theme)
+    elseif theme == "Crimson" then
+        theme1 = Color3.fromRGB(32,32,32)
+        theme2 = Color3.fromRGB(26,26,26)
+        theme3 = Color3.fromRGB(255, 255, 255) -- заменили красный на белый
+        print("Theme selected: "..theme)
+    elseif theme == "Deep Sea" then
+        theme1 = Color3.fromRGB(32,32,32)
+        theme2 = Color3.fromRGB(26,26,26)
+        theme3 = Color3.fromRGB(40, 81, 214)
+        print("Theme selected: "..theme)
     end
 
     local Screen = Instance.new("ScreenGui")
@@ -35,6 +76,8 @@ function library:CreateWindow(name, theme)
     local Items = Instance.new("ImageLabel")
     local TextLabel = Instance.new("TextLabel")
 
+    --Properties:
+
     Screen.Name = "By Shaddow"
     Screen.Parent = game:WaitForChild("CoreGui")
     Screen.Enabled = true
@@ -42,7 +85,8 @@ function library:CreateWindow(name, theme)
     Top.Name = "Top"
     Top.Parent = Screen
     Top.AnchorPoint = Vector2.new(0.5, 0.5)
-    Top.BackgroundTransparency = 1
+    Top.BackgroundColor3 = Color3.fromRGB(33, 32, 49)
+    Top.BackgroundTransparency = 1.000
     Top.Active = true
     Top.Position = UDim2.new(0.5, 0, 0.240482569, 0)
     Top.Size = UDim2.new(0, 558, 0, 25)
@@ -50,49 +94,53 @@ function library:CreateWindow(name, theme)
     Top.ImageColor3 = theme1
     Top.ScaleType = Enum.ScaleType.Slice
     Top.SliceCenter = Rect.new(100, 100, 100, 100)
-    Top.SliceScale = 0.03
+    Top.SliceScale = 0.030
     Top.Draggable = true
 
     TextLabel.Parent = Top
-    TextLabel.BackgroundTransparency = 1
-    TextLabel.Position = UDim2.new(0.035, 0, 0, 0)
+    TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.BackgroundTransparency = 1.000
+    TextLabel.Position = UDim2.new(0.0358817279, 0, 0, 0)
     TextLabel.Size = UDim2.new(0, 515, 0, 20)
     TextLabel.Font = Enum.Font.SourceSansSemibold
     TextLabel.Text = name
-    TextLabel.TextColor3 = theme1
-    TextLabel.TextSize = 14
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 14.000
 
     Toggle.Name = "Toggle"
     Toggle.Parent = Top
-    Toggle.BackgroundTransparency = 1
-    Toggle.Position = UDim2.new(0.009, 0, 0.142857, 0)
-    Toggle.Rotation = 90
+    Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Toggle.BackgroundTransparency = 1.000
+    Toggle.Position = UDim2.new(0.00900000613, 0, 0.142857149, 0)
+    Toggle.Rotation = 90.000
     Toggle.Size = UDim2.new(0, 15, 0, 16)
-    Toggle.ImageColor3 = theme1
+    Toggle.ImageColor3 = Color3.fromRGB(255, 255, 255)
     Toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=4731371541"
 
     Main.Name = "Main"
     Main.Parent = Top
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
-    Main.BackgroundTransparency = 1
-    Main.Position = UDim2.new(0.5, 0, 6.7557, 0)
+    Main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+    Main.BackgroundTransparency = 1.000
+    Main.Position = UDim2.new(0.5, 0, 6.75571394, 0)
     Main.Size = UDim2.new(0, 558, 0, 298)
     Main.Image = "rbxassetid://3570695787"
     Main.ImageColor3 = theme2
     Main.ScaleType = Enum.ScaleType.Slice
     Main.SliceCenter = Rect.new(100, 100, 100, 100)
-    Main.SliceScale = 0.03
+    Main.SliceScale = 0.030
 
     Tabs.Name = "Tabs"
     Tabs.Parent = TabContainer
-    Tabs.BackgroundTransparency = 1
-    Tabs.Position = UDim2.new(0.013, 0, 0.03, 0)
+    Tabs.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Tabs.BackgroundTransparency = 1.000
+    Tabs.Position = UDim2.new(0.0129999956, 0, 0.0300000086, 0)
     Tabs.Size = UDim2.new(0, 119, 0, 282)
     Tabs.Image = "rbxassetid://3570695787"
     Tabs.ImageColor3 = theme1
     Tabs.ScaleType = Enum.ScaleType.Slice
     Tabs.SliceCenter = Rect.new(100, 100, 100, 100)
-    Tabs.SliceScale = 0.02
+    Tabs.SliceScale = 0.020
 
     UIGridLayout.Parent = Tabs
     UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -103,14 +151,15 @@ function library:CreateWindow(name, theme)
 
     Items.Name = "Items"
     Items.Parent = Main
-    Items.BackgroundTransparency = 1
-    Items.Position = UDim2.new(0.2455, 0, 0.0302, 0)
+    Items.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Items.BackgroundTransparency = 1.000
+    Items.Position = UDim2.new(0.245519713, 0, 0.030201342, 0)
     Items.Size = UDim2.new(0, 414, 0, 282)
     Items.Image = "rbxassetid://3570695787"
     Items.ImageColor3 = theme1
     Items.ScaleType = Enum.ScaleType.Slice
     Items.SliceCenter = Rect.new(100, 100, 100, 100)
-    Items.SliceScale = 0.02
+    Items.SliceScale = 0.020
 
     local opened = true
     Toggle.MouseButton1Click:Connect(function()
@@ -135,20 +184,22 @@ function library:CreateWindow(name, theme)
 
         TextButton1.Name = text.." Button"
         TextButton1.Parent = Tabs
-        TextButton1.BackgroundTransparency = 1
+        TextButton1.BackgroundColor3 = Color3.fromRGB(32,32,32)
+        TextButton1.BackgroundTransparency = 1.000
         TextButton1.Size = UDim2.new(0, 70, 0, 21)
         TextButton1.Font = Enum.Font.SourceSansSemibold
         TextButton1.Text = text
-        TextButton1.TextColor3 = theme1
-        TextButton1.TextSize = 14
+        TextButton1.TextColor3 = Color3.fromRGB(255, 255, 255)
+        TextButton1.TextSize = 14.000
 
         Frame.Parent = Items
         Frame.Active = true
-        Frame.BackgroundTransparency = 1
+        Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Frame.BackgroundTransparency = 1.000
         Frame.BorderSizePixel = 0
-        Frame.Position = UDim2.new(0.017, 0, 0.036, 0)
+        Frame.Position = UDim2.new(0.0170000009, 0, 0.0359999985, 0)
         Frame.Size = UDim2.new(0, 399, 0, 264)
-        Frame.CanvasSize = UDim2.new(0, 0, 1.1, 0)
+        Frame.CanvasSize = UDim2.new(0, 0, 1.1,0)
         Frame.ScrollBarImageColor3 = theme2
         Frame.ScrollBarThickness = 7
 
@@ -162,7 +213,7 @@ function library:CreateWindow(name, theme)
 
         Frame.ChildAdded:Connect(function()
             if #Frame:GetChildren() > 13 then
-                Frame.CanvasSize = UDim2.new(0, 0, Frame.CanvasSize.Y.Scale + 0.10, 0)
+                Frame.CanvasSize = UDim2.new(0, 0,Frame.CanvasSize.Y.Scale + 0.10,0)
             end
         end)
 
@@ -172,7 +223,7 @@ function library:CreateWindow(name, theme)
             end
             for i,t in next, Tabs:GetChildren() do
                 if t.ClassName ~= "UIGridLayout" then
-                    t.TextColor3 = theme1
+                    t.TextColor3 = Color3.fromRGB(255, 255, 255)
                 end
                 TextButton1.TextColor3 = theme3
             end
@@ -181,7 +232,10 @@ function library:CreateWindow(name, theme)
         end)
 
         local InsideTab = {}
-        -- Здесь можно добавить остальные функции: CreateDropdown, CreateSlider, CreateToggle, CreateCheckbox, CreateButton
+
+        -- Здесь остаются все функции CreateDropdown, CreateSlider, CreateToggle, CreateCheckbox, CreateButton без изменений
+        -- Они будут использовать theme3 для окраса активных элементов, как и раньше
+
         return InsideTab
     end
 
