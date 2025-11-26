@@ -203,8 +203,8 @@ function finity.new(isdark, gprojectName, thinProject)
 	local screenSize = finity.gs["Workspace"].CurrentCamera.ViewportSize
 
 -- Задаем размер контейнера как процент от экрана, с ограничением min/max
-local containerWidth = math.clamp(screenSize.X * 0.8, 300, 800)
-local containerHeight = math.clamp(screenSize.Y * 0.8, 400, 600)
+local containerWidth = math.clamp(screenSize.X * 0.8, 300, 1400)
+local containerHeight = math.clamp(screenSize.Y * 0.8, 400, 900)
 
 self2.container = self:Create("ImageLabel", {
     Draggable = true,
