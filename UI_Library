@@ -156,13 +156,14 @@ Items.Name = "Items"
 Items.Parent = Main
 Items.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Items.BackgroundTransparency = 1.000
-Items.Position = UDim2.new(0.245519713, 0, 0.030201342, 0)
-Items.Size = UDim2.new(0, 414, 0, 282)
+Items.Position = UDim2.new(0.26, 0, 0.03, 0)    -- слева от Tabs, немного отступ
+Items.Size = UDim2.new(0.72, 0, 0.94, 0)        -- занимает оставшуюся ширину и почти всю высоту Main
 Items.Image = "rbxassetid://3570695787"
 Items.ImageColor3 = theme1
 Items.ScaleType = Enum.ScaleType.Slice
 Items.SliceCenter = Rect.new(100, 100, 100, 100)
 Items.SliceScale = 0.020
+
 
 local opened = true
 Toggle.MouseButton1Click:Connect(function()
