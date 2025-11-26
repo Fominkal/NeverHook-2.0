@@ -516,6 +516,9 @@ ToggleButton.Font = Enum.Font.SourceSans
 ToggleButton.Text = ""
 ToggleButton.TextColor3 = Color3.fromRGB(0, 0, 0)
 ToggleButton.TextSize = 14.000
+ToggleButton.BorderColor3 = Color3.fromRGB(255, 127, 128)
+ToggleButton.BorderSizePixel = 2
+
 
 local enabled = false
 function trigger()
