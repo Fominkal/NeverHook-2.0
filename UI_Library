@@ -27,15 +27,11 @@ function library:CreateWindow(name, theme)
         theme1 = Color3.fromRGB(32, 32, 32)
         theme2 = Color3.fromRGB(26, 26, 26)
         theme3 = Color3.fromRGB(176, 148, 255)
-    elseif theme == "Crimson" then
-        theme1 = Color3.fromRGB(32, 32, 32)
-        theme2 = Color3.fromRGB(26, 26, 26)
-        theme3 = Color3.fromRGB(255, 127, 128)
     elseif theme == "Reverse" then
         theme1 = Color3.fromRGB(26, 26, 26)
         theme2 = Color3.fromRGB(32, 32, 32)
         theme3 = Color3.fromRGB(176, 148, 255)
-    elseif theme == "Blood" then
+    elseif theme == "Blood" or theme == "Crimson" then
         theme1 = Color3.fromRGB(32, 32, 32)
         theme2 = Color3.fromRGB(26, 26, 26)
         theme3 = Color3.fromRGB(255, 127, 128)
@@ -100,8 +96,8 @@ function library:CreateWindow(name, theme)
     Toggle.Position = UDim2.new(0.009, 0, 0.143, 0)
     Toggle.Rotation = 90
     Toggle.Size = UDim2.new(0, 15, 0, 16)
-    Toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=4731371541"
     Toggle.ImageColor3 = Color3.fromRGB(255, 255, 255)
+    Toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=4731371541"
 
     Main.Name = "Main"
     Main.Parent = Top
@@ -136,7 +132,7 @@ function library:CreateWindow(name, theme)
     Items.Name = "Items"
     Items.Parent = Main
     Items.BackgroundTransparency = 1
-    Items.Position = UDim2.new(0.246, 0, 0.030, 0)
+    Items.Position = UDim2.new(0.246, 0, 0.03, 0)
     Items.Size = UDim2.new(0, 414, 0, 282)
     Items.Image = "rbxassetid://3570695787"
     Items.ImageColor3 = theme1
@@ -176,8 +172,8 @@ function library:CreateWindow(name, theme)
         Frame.Visible = false
 
         UIGridLayout_2.Parent = Frame
-        UIGridLayout_2.CellSize = UDim2.new(1, -20, 0, 32)
-        UIGridLayout_2.CellPadding = UDim2.new(0, 0, 0, 4)
+        UIGridLayout_2.CellSize = UDim2.new(1, -20, 0, 34)
+        UIGridLayout_2.CellPadding = UDim2.new(0, 0, 0, 6)
         UIGridLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
         UIGridLayout_2.StartCorner = Enum.StartCorner.TopLeft
 
@@ -195,116 +191,61 @@ function library:CreateWindow(name, theme)
 
         local InsideTab = {}
 
+        -- ИСПРАВЛЕННЫЙ ЧЕКБОКС: чекбокс слева → текст справа
         function InsideTab:CreateCheckbox(text, callback)
-    callback = callback or function() end
-    text = text or "Checkbox"
-
-    local CheckboxFrame = Instance.new("Frame")
-    local Box = Instance.new("ImageButton")
-    local BoxBG = Instance.new("ImageLabel")
-    local Text = Instance.new("TextLabel")
-
-    CheckboxFrame.Name = "Checkbox"
-    CheckboxFrame.Parent = Frame
-    CheckboxFrame.BackgroundColor3 = Color3.fromRGB(255,255,255)
-    CheckboxFrame.BackgroundTransparency = 1
-    CheckboxFrame.Size = UDim2.new(0, 200, 0, 23)
-
-    -- чекбокс квадрат
-    Box.Name = "Box"
-    Box.Parent = CheckboxFrame
-    Box.BackgroundColor3 = Color3.fromRGB(255,255,255)
-    Box.BackgroundTransparency = 1
-    Box.Size = UDim2.new(0, 18, 0, 18)
-    Box.Position = UDim2.new(0, 0, 0.1, 0)
-    Box.ZIndex = 2
-    Box.Image = "rbxassetid://3570695787"
-    Box.ImageColor3 = theme2
-    Box.ScaleType = Enum.ScaleType.Slice
-    Box.SliceCenter = Rect.new(100, 100, 100, 100)
-
-    -- фон (обводка)
-    BoxBG.Name = "BoxBG"
-    BoxBG.Parent = Box
-    BoxBG.BackgroundColor3 = Color3.fromRGB(255,255,255)
-    BoxBG.BackgroundTransparency = 1
-    BoxBG.Size = UDim2.new(1,0,1,0)
-    BoxBG.Image = "rbxassetid://3570695787"
-    BoxBG.ImageColor3 = theme3
-    BoxBG.ScaleType = Enum.ScaleType.Slice
-    BoxBG.SliceCenter = Rect.new(100,100,100,100)
-    BoxBG.Visible = false
-
-    -- текст справа
-    Text.Parent = CheckboxFrame
-    Text.BackgroundTransparency = 1
-    Text.Position = UDim2.new(0, 25, 0, 0)
-    Text.Size = UDim2.new(0, 170, 0, 23)
-    Text.Font = Enum.Font.SourceSansSemibold
-    Text.Text = text
-    Text.TextColor3 = Color3.fromRGB(255,255,255)
-    Text.TextSize = 14
-
-    -- логика
-    local state = false
-
-    local function toggle()
-        state = not state
-        BoxBG.Visible = state
-        callback(state)
-        play("rbxassetid://178104975") -- щелк
-    end
-
-    Box.MouseButton1Click:Connect(toggle)
-    Text.MouseButton1Click:Connect(toggle)
-
-end
-
-
-        function InsideTab:CreateToggle(text, callback)
-            -- (оставил как было, работает нормально)
-            text = text or "Toggle"
+            text = text or "Checkbox"
             callback = callback or function() end
 
-            local ToggleContainer = Instance.new("Frame")
-            ToggleContainer.Parent = Frame
-            ToggleContainer.BackgroundTransparency = 1
-            ToggleContainer.Size = UDim2.new(1, 0, 0, 32)
+            local Container = Instance.new("Frame")
+            Container.Name = "CheckboxContainer"
+            Container.Parent = Frame
+            Container.BackgroundTransparency = 1
+            Container.Size = UDim2.new(1, 0, 0, 34)
 
+            -- Квадратик чекбокса
+            local Box = Instance.new("ImageLabel")
+            Box.Name = "Box"
+            Box.Parent = Container
+            Box.Size = UDim2.new(0, 20, 0, 20)
+            Box.Position = UDim2.new(0, 8, 0.5, -10)
+            Box.AnchorPoint = Vector2.new(0, 0.5)
+            Box.BackgroundTransparency = 1
+            Box.Image = "rbxassetid://3570695787"
+            Box.ImageColor3 = theme2
+            Box.ScaleType = Enum.ScaleType.Slice
+            Box.SliceCenter = Rect.new(100, 100, 100, 100)
+            Box.SliceScale = 0.020
+
+            -- Галочка внутри
+            local Check = Instance.new("ImageLabel")
+            Check.Name = "Check"
+            Check.Parent = Box
+            Check.Size = UDim2.new(0, 16, 0, 16)
+            Check.Position = UDim2.new(0.5, 0, 0.5, 0)
+            Check.AnchorPoint = Vector2.new(0.5, 0.5)
+            Check.BackgroundTransparency = 1
+            Check.Image = "rbxassetid://3570695787"
+            Check.ImageColor3 = Color3.new(0, 0, 0)
+            Check.ScaleType = Enum.ScaleType.Slice
+            Check.SliceCenter = Rect.new(100, 100, 100, 100)
+            Check.SliceScale = 0.020
+
+            -- Текст справа
             local Label = Instance.new("TextLabel")
-            Label.Parent = ToggleContainer
+            Label.Name = "Label"
+            Label.Parent = Container
             Label.BackgroundTransparency = 1
-            Label.Size = UDim2.new(1, -60, 1, 0)
+            Label.Size = UDim2.new(1, -40, 1, 0)
+            Label.Position = UDim2.new(0, 36, 0, 0)
             Label.Text = text
             Label.TextColor3 = Color3.fromRGB(255, 255, 255)
             Label.Font = Enum.Font.SourceSansSemibold
             Label.TextSize = 14
             Label.TextXAlignment = Enum.TextXAlignment.Left
 
-            local SwitchBg = Instance.new("ImageLabel")
-            SwitchBg.Parent = ToggleContainer
-            SwitchBg.Size = UDim2.new(0, 40, 0, 20)
-            SwitchBg.Position = UDim2.new(1, -45, 0.5, -10)
-            SwitchBg.BackgroundTransparency = 1
-            SwitchBg.Image = "rbxassetid://3570695787"
-            SwitchBg.ImageColor3 = theme2
-            SwitchBg.ScaleType = Enum.ScaleType.Slice
-            SwitchBg.SliceCenter = Rect.new(100, 100, 100, 100)
-            SwitchBg.SliceScale = 0.25
-
-            local SwitchKnob = Instance.new("ImageLabel")
-            SwitchKnob.Parent = SwitchBg
-            SwitchKnob.Size = UDim2.new(0, 16, 0, 16)
-            SwitchKnob.Position = UDim2.new(0, 4, 0.5, -8)
-            SwitchKnob.AnchorPoint = Vector2.new(0, 0.5)
-            SwitchKnob.BackgroundTransparency = 1
-            SwitchKnob.Image = "rbxassetid://3570695787"
-            SwitchKnob.ScaleType = Enum.ScaleType.Slice
-            SwitchKnob.SliceCenter = Rect.new(100, 100, 100, 100)
-            SwitchKnob.SliceScale = 0.25
-
+            -- Кликабельная зона
             local Button = Instance.new("TextButton")
-            Button.Parent = ToggleContainer
+            Button.Parent = Container
             Button.BackgroundTransparency = 1
             Button.Size = UDim2.new(1, 0, 1, 0)
             Button.ZIndex = 2
@@ -312,8 +253,7 @@ end
 
             local enabled = false
             local function update()
-                SwitchBg.ImageColor3 = enabled and theme3 or theme2
-                SwitchKnob.Position = enabled and UDim2.new(1, -20, 0.5, -8) or UDim2.new(0, 4, 0.5, -8)
+                Check.ImageColor3 = enabled and theme3 or Color3.new(0, 0, 0)
                 pcall(callback, enabled)
             end
 
@@ -329,19 +269,273 @@ end
             return api
         end
 
-        function InsideTab:CreateSlider(text, min, max, callback)
-            -- (твой старый слайдер, работает)
-            -- ... (оставлен без изменений, если хочешь — могу тоже улучшить)
+        -- Здесь будет CreateToggle, CreateSlider и т.д. — жду твоей команды на вторую часть
+
+        -- ТОГГЛ (оставил как был, но чуть почистил и сделал красивее)
+        function InsideTab:CreateToggle(text, callback)
+            text = text or "Toggle"
+            callback = callback or function() end
+
+            local Container = Instance.new("Frame")
+            Container.Parent = Frame
+            Container.BackgroundTransparency = 1
+            Container.Size = UDim2.new(1, 0, 0, 34)
+
+            local Label = Instance.new("TextLabel")
+            Label.Parent = Container
+            Label.BackgroundTransparency = 1
+            Label.Size = UDim2.new(1, -70, 1, 0)
+            Label.Position = UDim2.new(0, 8, 0, 0)
+            Label.Text = text
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Label.Font = Enum.Font.SourceSansSemibold
+            Label.TextSize = 14
+            Label.TextXAlignment = Enum.TextXAlignment.Left
+
+            local SwitchBg = Instance.new("ImageLabel")
+            SwitchBg.Parent = Container
+            SwitchBg.Size = UDim2.new(0, 40, 0, 20)
+            SwitchBg.Position = UDim2.new(1, -48, 0.5, -10)
+            SwitchBg.BackgroundTransparency = 1
+            SwitchBg.Image = "rbxassetid://3570695787"
+            SwitchBg.ImageColor3 = theme2
+            SwitchBg.ScaleType = Enum.ScaleType.Slice
+            SwitchBg.SliceCenter = Rect.new(100, 100, 100, 100)
+            SwitchBg.SliceScale = 0.25
+
+            local Knob = Instance.new("ImageLabel")
+            Knob.Parent = SwitchBg
+            Knob.Size = UDim2.new(0, 16, 0, 16)
+            Knob.Position = UDim2.new(0, 4, 0.5, -8)
+            Knob.AnchorPoint = Vector2.new(0, 0.5)
+            Knob.BackgroundTransparency = 1
+            Knob.Image = "rbxassetid://3570695787"
+            Knob.ScaleType = Enum.ScaleType.Slice
+            Knob.SliceCenter = Rect.new(100, 100, 100, 100)
+            Knob.SliceScale = 0.25
+
+            local Button = Instance.new("TextButton")
+            Button.Parent = Container
+            Button.BackgroundTransparency = 1
+            Button.Size = UDim2.new(1, 0, 1, 0)
+            Button.ZIndex = 2
+            Button.Text = ""
+
+            local enabled = false
+            local function update()
+                SwitchBg.ImageColor3 = enabled and theme3 or theme2
+                Knob.Position = enabled and UDim2.new(1, -20, 0.5, -8) or UDim2.new(0, 4, 0.5, -8)
+                if toolight and enabled then
+                    Knob.ImageColor3 = Color3.fromRGB(26, 26, 26)
+                elseif toolight then
+                    Knob.ImageColor3 = theme3
+                end
+                pcall(callback, enabled)
+            end
+
+            Button.MouseButton1Click:Connect(function()
+                enabled = not enabled
+                play("rbxassetid://6309164078")
+                update()
+            end)
+
+            local api = {}
+            function api:Set(state) enabled = (state == true); update() end
+            function api:Get() return enabled end
+            return api
         end
 
-        function InsideTab:CreateDropdown(text, items, callback)
-            -- (твой старый дропдаун, работает)
-            -- ... (можно оставить)
+        -- СЛАЙДЕР (оригинальный, но чуть подправленный размер)
+        function InsideTab:CreateSlider(text, minvalue, maxvalue, callback)
+            text = text or "Slider"
+            minvalue = minvalue or 0
+            maxvalue = maxvalue or 100
+            callback = callback or function() end
+
+            local mouse = game.Players.LocalPlayer:GetMouse()
+            local uis = game:GetService("UserInputService")
+
+            local Container = Instance.new("Frame")
+            Container.Parent = Frame
+            Container.BackgroundTransparency = 1
+            Container.Size = UDim2.new(1, 0, 0, 50)
+
+            local Label = Instance.new("TextLabel")
+            Label.Parent = Container
+            Label.BackgroundTransparency = 1
+            Label.Size = UDim2.new(1, -10, 0, 20)
+            Label.Position = UDim2.new(0, 8, 0, 0)
+            Label.Text = text
+            Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Label.Font = Enum.Font.SourceSansSemibold
+            Label.TextSize = 12
+            Label.TextXAlignment = Enum.TextXAlignment.Left
+
+            local Track = Instance.new("ImageLabel")
+            Track.Parent = Container
+            Track.Size = UDim2.new(1, -20, 0, 8)
+            Track.Position = UDim2.new(0, 10, 0, 28)
+            Track.BackgroundTransparency = 1
+            Track.Image = "rbxassetid://3570695787"
+            Track.ImageColor3 = theme2
+            Track.ScaleType = Enum.ScaleType.Slice
+            Track.SliceCenter = Rect.new(100, 100, 100, 100)
+            Track.SliceScale = 0.020
+
+            local Fill = Instance.new("ImageLabel")
+            Fill.Parent = Track
+            Fill.Size = UDim2.new(0, 0, 1, 0)
+            Fill.BackgroundTransparency = 1
+            Fill.Image = "rbxassetid://3570695787"
+            Fill.ImageColor3 = theme3
+            Fill.ScaleType = Enum.ScaleType.Slice
+            Fill.SliceCenter = Rect.new(100, 100, 100, 100)
+            Fill.SliceScale = 0.020
+
+            local ValueLabel = Instance.new("TextLabel")
+            ValueLabel.Parent = Container
+            ValueLabel.BackgroundTransparency = 1
+            ValueLabel.Size = UDim2.new(0, 40, 0, 20)
+            ValueLabel.Position = UDim2.new(1, -50, 0, 20)
+            ValueLabel.Text = tostring(minvalue)
+            ValueLabel.TextColor3 = theme3
+            ValueLabel.Font = Enum.Font.SourceSansBold
+            ValueLabel.TextSize = 13
+
+            local dragging = false
+
+            Track.InputBegan:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    dragging = true
+                    local pos = math.clamp((mouse.X - Track.AbsolutePosition.X) / Track.AbsoluteSize.X, 0, 1)
+                    local value = math.floor(minvalue + (maxvalue - minvalue) * pos)
+                    Fill.Size = UDim2.new(pos, 0, 1, 0)
+                    ValueLabel.Text = tostring(value)
+                    pcall(callback, value)
+                end
+            end)
+
+            Track.InputChanged:Connect(function(input)
+                if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+                    local pos = math.clamp((mouse.X - Track.AbsolutePosition.X) / Track.AbsoluteSize.X, 0, 1)
+                    local value = math.floor(minvalue + (maxvalue - minvalue) * pos)
+                    Fill.Size = UDim2.new(pos, 0, 1, 0)
+                    ValueLabel.Text = tostring(value)
+                    pcall(callback, value)
+                end
+            end)
+
+            uis.InputEnded:Connect(function(input)
+                if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                    dragging = false
+                end
+            end)
         end
 
+        -- ДРОПДАУН (оригинальный, работает)
+        function InsideTab:CreateDropdown(text, list, callback)
+            -- (оставляю как в оригинале — он и так нормальный)
+            local BodyYSize = 0
+            local IsDropped = false
+            callback = callback or function() end
+            list = list or {}
+            text = text or "Dropdown"
+
+            local Dropdown = Instance.new("TextLabel")
+            local TextButton = Instance.new("TextButton")
+            local DropdownContainer = Instance.new("ImageLabel")
+            local UIListLayout_2 = Instance.new("UIListLayout")
+
+            Dropdown.Parent = Frame
+            Dropdown.BackgroundTransparency = 1
+            Dropdown.Size = UDim2.new(1, -20, 0, 34)
+            Dropdown.Position = UDim2.new(0, 10, 0, 0)
+            Dropdown.Text = text
+            Dropdown.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Dropdown.Font = Enum.Font.SourceSansSemibold
+            Dropdown.TextSize = 14
+            Dropdown.TextXAlignment = Enum.TextXAlignment.Left
+
+            TextButton.Parent = Dropdown
+            TextButton.BackgroundTransparency = 1
+            TextButton.Position = UDim2.new(1, -40, 0, 0)
+            TextButton.Size = UDim2.new(0, 34, 1, 0)
+            TextButton.Text = "▼"
+            TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+            TextButton.Font = Enum.Font.SourceSansBold
+
+            DropdownContainer.Parent = TextButton
+            DropdownContainer.BackgroundTransparency = 1
+            DropdownContainer.Position = UDim2.new(0, 0, 1, 2)
+            DropdownContainer.Size = UDim2.new(1, 0, 0, 0)
+            DropdownContainer.Image = "rbxassetid://3570695787"
+            DropdownContainer.ImageColor3 = theme2
+            DropdownContainer.Visible = false
+            DropdownContainer.ScaleType = Enum.ScaleType.Slice
+            DropdownContainer.SliceCenter = Rect.new(100, 100, 100, 100)
+            DropdownContainer.SliceScale = 0.020
+
+            UIListLayout_2.Parent = DropdownContainer
+            UIListLayout_2.SortOrder = Enum.SortOrder.LayoutOrder
+
+            for _, v in pairs(list) do
+                BodyYSize = BodyYSize + 27
+                local Option = Instance.new("TextButton")
+                Option.Parent = DropdownContainer
+                Option.BackgroundTransparency = 1
+                Option.Size = UDim2.new(1, 0, 0, 27)
+                Option.Text = v
+                Option.TextColor3 = Color3.fromRGB(255, 255, 255)
+                Option.Font = Enum.Font.SourceSansSemibold
+                Option.TextSize = 14
+                Option.MouseButton1Click:Connect(function()
+                    Dropdown.Text = v
+                    callback(v)
+                    IsDropped = false
+                    DropdownContainer.Visible = false
+                    play("rbxassetid://178104975")
+                end)
+            end
+
+            DropdownContainer.Size = UDim2.new(1, 0, 0, BodyYSize)
+
+            TextButton.MouseButton1Click:Connect(function()
+                play("rbxassetid://178104975")
+                IsDropped = not IsDropped
+                DropdownContainer.Visible = IsDropped
+            end)
+        end
+
+        -- КНОПКА
         function InsideTab:CreateButton(text, callback)
-            -- (твой старый баттон, работает)
-            -- ... (оставлен)
+            text = text or "Button"
+            callback = callback or function() end
+
+            local Button = Instance.new("TextButton")
+            Button.Parent = Frame
+            Button.BackgroundTransparency = 1
+            Button.Size = UDim2.new(1, -20, 0, 34)
+            Button.Position = UDim2.new(0, 10, 0, 0)
+            Button.Text = text
+            Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+            Button.Font = Enum.Font.SourceSansSemibold
+            Button.TextSize = 14
+
+            local Bg = Instance.new("ImageLabel")
+            Bg.Parent = Button
+            Bg.Size = UDim2.new(1, 0, 1, 0)
+            Bg.Position = UDim2.new(0, 0, 0, 0)
+            Bg.BackgroundTransparency = 1
+            Bg.Image = "rbxassetid://3570695787"
+            Bg.ImageColor3 = theme2
+            Bg.ScaleType = Enum.ScaleType.Slice
+            Bg.SliceCenter = Rect.new(100, 100, 100, 100)
+            Bg.SliceScale = 0.030
+
+            Button.MouseButton1Click:Connect(function()
+                pcall(callback)
+                play("rbxassetid://178104975")
+            end)
         end
 
         function InsideTab:Show()
@@ -349,6 +543,9 @@ end
                 if v:IsA("ScrollingFrame") then v.Visible = false end
             end
             Frame.Visible = true
+            for _, v in pairs(Tabs:GetChildren()) do
+                if v:IsA("TextButton") then v.TextColor3 = Color3.fromRGB(255, 255, 255) end
+            end
             TextButton1.TextColor3 = theme3
         end
 
