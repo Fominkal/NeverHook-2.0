@@ -363,7 +363,7 @@ function InsideTab:CreateSlider(text, minvalue, maxvalue, callback)
     Slider.Font = Enum.Font.SourceSansSemibold
     Slider.Text = text
     Slider.TextColor3 = Color3.fromRGB(255, 255, 255)
-    Slider.TextSize = 14.000
+    Slider.TextSize = 12.000
     
     Frame_3.Name = "Frame"
     Frame_3.Parent = Slider
