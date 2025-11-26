@@ -197,15 +197,16 @@ function InsideLibrary:CreateTab(text)
 
     -- Контейнер с элементами (справа)
     Frame.Parent = Items
-    Frame.BackgroundTransparency = 1
-    Frame.BorderSizePixel = 0
-    Frame.Position = UDim2.new(0.017, 0, 0.036, 0)
-    Frame.Size = UDim2.new(0, 399, 0, 264)
-    Frame.CanvasSize = UDim2.new(0, 0, 0, 0)
-    Frame.AutomaticCanvasSize = Enum.AutomaticSize.Y        -- авто-скролл
-    Frame.ScrollBarThickness = 6
-    Frame.ScrollBarImageColor3 = theme2
-    Frame.Visible = false
+Frame.BackgroundTransparency = 1
+Frame.BorderSizePixel = 0
+Frame.Position = UDim2.new(0.02, 0, 0.03, 0)       -- небольшой отступ слева и сверху
+Frame.Size = UDim2.new(0.96, 0, 0.94, 0)           -- занимает почти всю ширину и высоту Items
+Frame.CanvasSize = UDim2.new(0, 0, 0, 0)
+Frame.AutomaticCanvasSize = Enum.AutomaticSize.Y    -- авто-скролл по вертикали
+Frame.ScrollBarThickness = 6
+Frame.ScrollBarImageColor3 = theme2
+Frame.Visible = false
+
 
     -- Главное: UIListLayout вместо старого кривого UIGridLayout
     local ListLayout = Instance.new("UIListLayout")
