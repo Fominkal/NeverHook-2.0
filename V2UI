@@ -200,19 +200,26 @@ function finity.new(isdark, gprojectName, thinProject)
 		ResetOnSpawn = false,
 	})
 
-	self2.container = self:Create("ImageLabel", {
-		Draggable = true,
-		Active = true,
-		Name = "Container",
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		BackgroundTransparency = 0,
-		BackgroundColor3 = theme.main_container,
-		BorderSizePixel = 0,
-		Position = UDim2.new(0.5, 0, 0.5, 0),
-		Size = UDim2.new(0, 400, 0, 500),
-		ZIndex = 2,
-		ImageTransparency = 1
-    })
+	local screenSize = finity.gs["Workspace"].CurrentCamera.ViewportSize
+
+-- Задаем размер контейнера как процент от экрана, с ограничением min/max
+local containerWidth = math.clamp(screenSize.X * 0.8, 300, 800)
+local containerHeight = math.clamp(screenSize.Y * 0.8, 400, 600)
+
+self2.container = self:Create("ImageLabel", {
+    Draggable = true,
+    Active = true,
+    Name = "Container",
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    BackgroundTransparency = 0,
+    BackgroundColor3 = theme.main_container,
+    BorderSizePixel = 0,
+    Position = UDim2.new(0.5, 0, 0.5, 0),
+    Size = UDim2.new(0, containerWidth, 0, containerHeight),
+    ZIndex = 2,
+    ImageTransparency = 1
+})
+
     
     self2.modal = self:Create("TextButton", {
         Text = "";
