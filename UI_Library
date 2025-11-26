@@ -120,17 +120,18 @@ Toggle.ImageColor3 = Color3.fromRGB(255, 255, 255)
 Toggle.Image = "https://www.roblox.com/Thumbs/Asset.ashx?width=420&height=420&assetId=4731371541"
 
 Main.Name = "Main"
-Main.Parent = Top
-Main.AnchorPoint = Vector2.new(0.5, 0.5)
+Main.Parent = Screen  -- теперь Main лучше привязывать к Screen, а не к Top
+Main.AnchorPoint = Vector2.new(0.5, 0)
 Main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 Main.BackgroundTransparency = 1.000
-Main.Position = UDim2.new(0.5, 0, 6.75571394, 0)
-Main.Size = UDim2.new(0, 558, 0, 298)
+Main.Position = UDim2.new(0.5, 0, 0.12, 0) -- чуть ниже Top
+Main.Size = UDim2.new(0.6, 0, 0.6, 0)      -- 60% ширины, 60% высоты
 Main.Image = "rbxassetid://3570695787"
 Main.ImageColor3 = theme2
 Main.ScaleType = Enum.ScaleType.Slice
 Main.SliceCenter = Rect.new(100, 100, 100, 100)
 Main.SliceScale = 0.030
+
 
 Tabs.Name = "Tabs"
 Tabs.Parent = TabContainer
