@@ -203,18 +203,22 @@ function finity.new(isdark, gprojectName, thinProject)
 	})
 
 	self2.container = self:Create("ImageLabel", {
-		Draggable = true,
-		Active = true,
-		Name = "Container",
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		BackgroundTransparency = 0,
-		BackgroundColor3 = theme.main_container,
-		BorderSizePixel = 0,
-		Position = UDim2.new(0.5, 0, 0.5, 0),
-		Size = UDim2.new(0, 800, 0, 500),
-		ZIndex = 2,
-		ImageTransparency = 1
-    })
+    Draggable = true,
+    Active = true,
+    Name = "Container",
+    AnchorPoint = Vector2.new(0.5, 0.5),
+    BackgroundTransparency = 0,
+    BackgroundColor3 = theme.main_container,
+    BorderSizePixel = 0,
+    Position = UDim2.new(0.5, 0, 0.5, 0),
+    Size = UDim2.new(0, 800, 0, 500),  -- фиксированный размер
+    ZIndex = 2,
+    ImageTransparency = 1,
+    Resizable = false,                 -- важно!
+    ClipsDescendants = true,
+    -- Добавляем Scale-устойчивость
+    AutomaticSize = Enum.AutomaticSize.None
+})
     
     self2.modal = self:Create("TextButton", {
         Text = "";
