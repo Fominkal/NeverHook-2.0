@@ -648,77 +648,10 @@ function InsideTab:CreateCheckbox(text, callback)
     return api
 end
     
-Cheat.Name = "Cheat"
-Cheat.Parent = Frame
-Cheat.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Cheat.BackgroundTransparency = 1.000
-Cheat.Size = UDim2.new(1, -10, 0, 50) -- растягивается по ширине Frame с отступом 10px слева и справа
-Cheat.Text = text
-Cheat.Font = Enum.Font.SourceSansSemibold
-Cheat.TextColor3 = Color3.fromRGB(255, 255, 255)
-Cheat.TextSize = 12.000
-Cheat.TextWrapped = false -- отключаем перенос, чтобы был в одну строку
-Cheat.TextXAlignment = Enum.TextXAlignment.Left
-Cheat.TextYAlignment = Enum.TextYAlignment.Center
 
 
 
-    
-    -- Рамка чекбокса
-    MainCheatFrame.Name = "MainCheatFrame"
-    MainCheatFrame.Parent = Cheat
-    MainCheatFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    MainCheatFrame.BackgroundTransparency = 1.000
-    MainCheatFrame.Position = UDim2.new(1, -75, 0.13, 0)
-    MainCheatFrame.Size = UDim2.new(0, 18, 0, 18)
-    MainCheatFrame.Image = "rbxassetid://3570695787"
-    MainCheatFrame.ImageColor3 = theme2 -- рамка
-    MainCheatFrame.ScaleType = Enum.ScaleType.Slice
-    MainCheatFrame.SliceCenter = Rect.new(100, 100, 100, 100)
-    MainCheatFrame.SliceScale = 0.020
-    
-    -- Внутренняя часть чекбокса
-    InsideCheatFrame.Name = "Frame"
-    InsideCheatFrame.Parent = MainCheatFrame
-    InsideCheatFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-    InsideCheatFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    InsideCheatFrame.BackgroundTransparency = 1.000
-    InsideCheatFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
-    InsideCheatFrame.Size = UDim2.new(0, 14, 0, 14)
-    InsideCheatFrame.Image = "rbxassetid://3570695787"
-    InsideCheatFrame.ImageColor3 = Color3.fromRGB(0, 0, 0) -- прозрачная при выкл
-    InsideCheatFrame.ScaleType = Enum.ScaleType.Slice
-    InsideCheatFrame.SliceCenter = Rect.new(100, 100, 100, 100)
-    InsideCheatFrame.SliceScale = 0.020
-    
-    -- Кнопка для клика
-    CheatButton.Parent = MainCheatFrame
-    CheatButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    CheatButton.BackgroundTransparency = 1.000
-    CheatButton.Size = UDim2.new(0, 18, 0, 18)
-    CheatButton.Font = Enum.Font.SourceSans
-    CheatButton.Text = ""
-    CheatButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-    CheatButton.TextSize = 14.000
-    CheatButton.ZIndex = 2
 
-    -- Состояние чекбокса
-    local enabledcheat = false
-    function triggercheat()
-        enabledcheat = not enabledcheat
-        pcall(callback, enabledcheat)
-        play("rbxassetid://6309164078")
-        if enabledcheat then
-            -- Включено: внутренняя часть окрашена
-            InsideCheatFrame.ImageColor3 = theme3
-        else
-            -- Выключено: внутренняя часть прозрачная (только рамка)
-            InsideCheatFrame.ImageColor3 = Color3.fromRGB(0,0,0)
-        end
-    end
-    
-    CheatButton.MouseButton1Click:Connect(triggercheat)
-end
 
 function InsideTab:CreateButton(text, callback)
     text = text or "New Button"
