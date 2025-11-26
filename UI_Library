@@ -89,14 +89,15 @@ Top.AnchorPoint = Vector2.new(0.5, 0.5)
 Top.BackgroundColor3 = Color3.fromRGB(33, 32, 49)
 Top.BackgroundTransparency = 1.000
 Top.Active = true
-Top.Position = UDim2.new(0.5, 0, 0.240482569, 0)
-Top.Size = UDim2.new(0, 558, 0, 25)
+Top.Position = UDim2.new(0.5, 0, 0.05, 0)   -- центр по ширине, 5% вниз
+Top.Size = UDim2.new(0.6, 0, 0.05, 0)       -- 60% ширины, 5% высоты
 Top.Image = "rbxassetid://3570695787"
 Top.ImageColor3 = theme1
 Top.ScaleType = Enum.ScaleType.Slice
 Top.SliceCenter = Rect.new(100, 100, 100, 100)
 Top.SliceScale = 0.030
 Top.Draggable = true
+
 
 TextLabel.Parent = Top
 TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
