@@ -596,7 +596,7 @@ self2.container = self:Create("ImageLabel", {
 							ImageColor3 = theme.checkbox_outer,
 							ScaleType = Enum.ScaleType.Slice,
 							SliceCenter = Rect.new(100, 100, 100, 100),
-							SliceScale = 0.06, -- scale Checkbox off
+							SliceScale = 0.07, -- scale Checkbox off
 						})
 
 						cheat.checkboxbutton = finity:Create("ImageButton", {
