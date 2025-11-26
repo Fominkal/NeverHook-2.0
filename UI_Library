@@ -569,11 +569,14 @@ Cheat.Name = "Cheat"
 Cheat.Parent = Frame
 Cheat.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Cheat.BackgroundTransparency = 1.000
-Cheat.Size = UDim2.new(0, 200, 0, 50)
+Cheat.Size = UDim2.new(0, 300, 0, 50) -- увеличена ширина с 200 до 300
 Cheat.Text = text
 Cheat.Font = Enum.Font.SourceSansSemibold
 Cheat.TextColor3 = Color3.fromRGB(255, 255, 255)
 Cheat.TextSize = 14.000
+Cheat.TextWrapped = true -- чтобы переносилось на новую строку при необходимости
+Cheat.TextXAlignment = Enum.TextXAlignment.Left -- выравнивание по левому краю
+Cheat.TextYAlignment = Enum.TextYAlignment.Center
 
 
     
