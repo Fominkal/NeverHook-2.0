@@ -12,7 +12,7 @@ finity.theme = { -- light
 
 	checkbox_checked = Color3.fromRGB(255, 127, 128), -- коралловый
 	checkbox_outer = Color3.fromRGB(255, 127, 128),   -- обводка тоже коралловая
-	checkbox_inner = Color3.fromRGB(198, 188, 202), 
+	checkbox_inner = Color3.fromRGB(215, 206, 227), 
 
 	slider_color = Color3.fromRGB(255, 127, 128),       -- коралловый
 	slider_color_sliding = Color3.fromRGB(255, 127, 80),
@@ -48,7 +48,7 @@ finity.dark_theme = { -- dark
 
 	checkbox_checked = Color3.fromRGB(255, 127, 128), -- коралловый
 	checkbox_outer = Color3.fromRGB(255, 127, 128),   -- обводка тоже коралловая
-	checkbox_inner = Color3.fromRGB(198, 188, 202), 
+	checkbox_inner = Color3.fromRGB(215, 206, 227), 
 
 	slider_color = Color3.fromRGB(255, 127, 128),       -- коралловый
 	slider_color_sliding = Color3.fromRGB(255, 127, 80),
