@@ -560,10 +560,93 @@ return switchactions
 end
 
 function InsideTab:CreateCheckbox(text, callback)
-    local Cheat = Instance.new("TextLabel")
+    text = text or "Checkbox"
+    callback = callback or function() end
+    
+    local CheckboxContainer = Instance.new("Frame")
+    CheckboxContainer.Name = "CheckboxContainer"
+    CheckboxContainer.Parent = Frame
+    CheckboxContainer.BackgroundTransparency = 1
+    CheckboxContainer.Size = UDim2.new(1, -20, 0, 40)  -- отступы по бокам
+    CheckboxContainer.LayoutOrder = #Frame:GetChildren()
+
+    -- Сам чекбокс (квадратик)
     local MainCheatFrame = Instance.new("ImageLabel")
+    MainCheatFrame.Name = "CheckboxBox"
+    MainCheatFrame.Parent = CheckboxContainer
+    MainCheatFrame.BackgroundTransparency = 1
+    MainCheatFrame.Size = UDim2.new(0, 20, 0, 20)
+    MainCheatFrame.Position = UDim2.new(0, 0, 0.5, -10)
+    MainCheatFrame.AnchorPoint = Vector2.new(0, 0.5)
+    MainCheatFrame.Image = "rbxassetid://3570695787"
+    MainCheatFrame.ImageColor3 = theme2
+    MainCheatFrame.ScaleType = Enum.ScaleType.Slice
+    MainCheatFrame.SliceCenter = Rect.new(100, 100, 100, 100)
+    MainCheatFrame.SliceScale = 0.020
+
+    -- Внутренний квадратик (галочка)
     local InsideCheatFrame = Instance.new("ImageLabel")
-    local CheatButton = Instance.new("TextButton")
+    InsideCheatFrame.Name = "Checkmark"
+    InsideCheatFrame.Parent = MainCheatFrame
+    InsideCheatFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+    InsideCheatFrame.Position = UDim2.new(0.5, 0, 0.5, 0)
+    InsideCheatFrame.Size = UDim2.new(0, 16, 0, 16)
+    InsideCheatFrame.BackgroundTransparency = 1
+    InsideCheatFrame.Image = "rbxassetid://3570695787"
+    InsideCheatFrame.ImageColor3 = Color3.fromRGB(0, 0, 0) -- выключено — чёрный/прозрачный
+    InsideCheatFrame.ScaleType = Enum.ScaleType.Slice
+    InsideCheatFrame.SliceCenter = Rect.new(100, 100, 100, 100)
+    InsideCheatFrame.SliceScale = 0.020
+
+    -- Текст справа от чекбокса
+    local Text = Instance.new("TextLabel")
+    Text.Name = "CheckboxText"
+    Text.Parent = CheckboxContainer
+    Text.BackgroundTransparency = 1
+    Text.Size = UDim2.new(1, -30, 1, 0)  -- оставляем место под чекбокс
+    Text.Position = UDim2.new(0, 28, 0, 0)
+    Text.Font = Enum.Font.SourceSansSemibold
+    Text.Text = text
+    Text.TextColor3 = Color3.fromRGB(255, 255, 255)
+    Text.TextSize = 14
+    Text.TextXAlignment = Enum.TextXAlignment.Left
+    Text.TextYAlignment = Enum.TextYAlignment.Center
+
+    -- Кнопка (кликабельная область)
+    local ClickButton = Instance.new("TextButton")
+    ClickButton.Parent = CheckboxContainer
+    ClickButton.BackgroundTransparency = 1
+    ClickButton.Size = UDim2.new(1, 0, 1, 0)
+    ClickButton.ZIndex = 2
+    ClickButton.Text = ""
+
+    local enabled = false
+
+    local function update()
+        if enabled then
+            InsideCheatFrame.ImageColor3 = theme3
+        else
+            InsideCheatFrame.ImageColor3 = Color3.fromRGB(0, 0, 0)
+        end
+        pcall(callback, enabled)
+    end
+
+    ClickButton.MouseButton1Click:Connect(function()
+        enabled = not enabled
+        play("rbxassetid://6309164078")
+        update()
+    end)
+
+    -- Опционально: можно вернуть объект для внешнего управления
+    local api = {}
+    function api:Set(state)
+        enabled = state == true
+        update()
+    end
+    function api:Get() return enabled end
+
+    return api
+end
     
 Cheat.Name = "Cheat"
 Cheat.Parent = Frame
