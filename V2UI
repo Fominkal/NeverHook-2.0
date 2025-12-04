@@ -1228,12 +1228,22 @@ cheat.sliderbar.Parent = cheat.container
 --Slider
 
 -- Кнопка
+
+
+-- Создаём контейнер сразу
+cheat.container = finity:Create("Frame", {
+    Name = "CheatContainer",
+    BackgroundTransparency = 1,
+    Size = UDim2.new(1, 0, 0, 30), -- высота кнопки
+})
+cheat.container.Parent = parentFrame -- parentFrame: куда добавляем все читы
+
+-- Если это кнопка
 if string.lower(kind) == "button" then
     local button_text = data and data.text or "Button"
 
     cheat.background = finity:Create("ImageLabel", {
         Name = "Background",
-        BackgroundColor3 = Color3.new(1, 1, 1),
         BackgroundTransparency = 1,
         Size = UDim2.new(1, 0, 1, 0),
         ZIndex = 2,
@@ -1241,22 +1251,21 @@ if string.lower(kind) == "button" then
         ImageColor3 = theme.button_background,
         ImageTransparency = 0.5,
         ScaleType = Enum.ScaleType.Slice,
-        SliceCenter = Rect.new(100, 100, 100, 100),
-        SliceScale = 0.02
+        SliceCenter = Rect.new(100,100,100,100),
+        SliceScale = 0.02,
+        Parent = cheat.container
     })
 
     cheat.button = finity:Create("TextButton", {
         Name = "Button",
-        BackgroundColor3 = Color3.new(1, 1, 1),
         BackgroundTransparency = 1,
-        Position = UDim2.new(0, 0, 0, 0),
         Size = UDim2.new(1, 0, 1, 0),
-        ZIndex = 2,
         Font = Enum.Font.Gotham,
         Text = button_text,
         TextColor3 = theme.textbox_text,
         TextSize = 13,
-        TextXAlignment = Enum.TextXAlignment.Center
+        TextXAlignment = Enum.TextXAlignment.Center,
+        Parent = cheat.container
     })
 
     local TweenService = finity.gs["TweenService"]
@@ -1273,21 +1282,19 @@ if string.lower(kind) == "button" then
     cheat.button.MouseButton1Up:Connect(function()
         TweenService:Create(cheat.background, TweenInfo.new(0.2), {ImageColor3 = theme.button_background}):Play()
         if callback then
-            local s, e = pcall(callback)
+            local s,e = pcall(callback)
             if not s then warn("error: "..e) end
         end
     end)
 
     function cheat:Fire()
         if callback then
-            local s, e = pcall(callback)
+            local s,e = pcall(callback)
             if not s then warn("error: "..e) end
         end
     end
-
-    cheat.background.Parent = cheat.container
-    cheat.button.Parent = cheat.container
 end
+
 
 
 
