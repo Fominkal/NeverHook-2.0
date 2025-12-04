@@ -1132,119 +1132,99 @@ self2.container = self:Create("ImageLabel", {
                         end
 
                         function cheat:SetValue(value)
-                            local size = math.clamp(value - cheat.sliderbar.AbsolutePosition.X, 0, 150)
-							local percent = size / 150
-							local perc = default/maximum
-                            cheat.value = math.floor((minimum + (maximum - minimum) * percent) * 100) / 100
-                            finity.gs["TweenService"]:Create(cheat.visiframe, TweenInfo.new(0.1), {
-								Size = UDim2.new(perc, 0, 1, 0),
-                            }):Play()
-                            if callback then
-								local s, e = pcall(function()
-									callback(cheat.value)
-								end)
+    local size = math.clamp(value - cheat.sliderbar.AbsolutePosition.X, 0, 150)
+    local percent = size / 150
+    local perc = default / maximum
+    cheat.value = math.floor((minimum + (maximum - minimum) * percent) * 100) / 100
+    finity.gs["TweenService"]:Create(cheat.visiframe, TweenInfo.new(0.1), {
+        Size = UDim2.new(perc, 0, 1, 0),
+    }):Play()
+    if callback then
+        local s, e = pcall(function()
+            callback(cheat.value)
+        end)
+        if not s then warn("error: ".. e) end
+    end
+end
 
-								if not s then warn("error: ".. e) end
-							end
-                        end
+local UIS = finity.gs["UserInputService"]
+local dragging = false
+local activeTouch = nil
 
-						cheat.sliderbar.MouseButton1Down:Connect(function()
-							local size = math.clamp(mouse.X - cheat.sliderbar.AbsolutePosition.X, 0, 150)
-							local percent = size / 150
+local function updateSlider(inputPos)
+    local size = math.clamp(inputPos.X - cheat.sliderbar.AbsolutePosition.X, 0, 150)
+    local percent = size / 150
 
-							cheat.value = math.floor((minimum + (maximum - minimum) * percent) * 100) / 100
-							if precise then
-								cheat.numbervalue.Text = math.ceil(tostring(cheat.value)) .. suffix
-							else
-								cheat.numbervalue.Text = tostring(cheat.value) .. suffix
-							end
+    cheat.value = math.floor((minimum + (maximum - minimum) * percent) * 100) / 100
+    if precise then
+        cheat.numbervalue.Text = math.ceil(tostring(cheat.value)) .. suffix
+    else
+        cheat.numbervalue.Text = tostring(cheat.value) .. suffix
+    end
 
-							if callback then
-								local s, e = pcall(function()
-									if data.precise then
-										callback(math.ceil(cheat.value))
-									else
-										callback(cheat.value)
-									end
-								end)
+    if callback then
+        local s, e = pcall(function()
+            if data.precise then
+                callback(math.ceil(cheat.value))
+            else
+                callback(cheat.value)
+            end
+        end)
+        if not s then warn("error: ".. e) end
+    end
 
-								if not s then warn("error: ".. e) end
-							end
+    finity.gs["TweenService"]:Create(cheat.visiframe, TweenInfo.new(0.1), {
+        Size = UDim2.new(percent, 0, 1, 0),
+        ImageColor3 = theme.slider_color_sliding
+    }):Play()
 
-							finity.gs["TweenService"]:Create(cheat.visiframe, TweenInfo.new(0.1), {
-								Size = UDim2.new(size / 150, 0, 1, 0),
-								ImageColor3 = theme.slider_color_sliding
-							}):Play()
+    local Position = UDim2.new(percent, 5, 0.5, 0)
+    if Position.Width.Scale >= 0.6 then
+        Position = UDim2.new(1, -cheat.numbervalue.TextBounds.X, 0.5, 10)
+    end
 
-							finity.gs["TweenService"]:Create(cheat.numbervalue, TweenInfo.new(0.1), {
-								Position = UDim2.new(size / 150, 5, 0.5, 0),
-								TextTransparency = 0
-							}):Play()
+    finity.gs["TweenService"]:Create(cheat.numbervalue, TweenInfo.new(0.1), {
+        Position = Position,
+        TextTransparency = 0
+    }):Play()
+end
 
-							moveconnection = mouse.Move:Connect(function()
-								local size = math.clamp(mouse.X - cheat.sliderbar.AbsolutePosition.X, 0, 150)
-								local percent = size / 150
+cheat.sliderbar.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        dragging = true
+        activeTouch = input.UserInputType == Enum.UserInputType.Touch and input or nil
+        updateSlider(input.Position)
+    end
+end)
 
-								cheat.value = math.floor((minimum + (maximum - minimum) * percent) * 100) / 100
-								if precise then
-									cheat.numbervalue.Text = math.ceil(tostring(cheat.value)) .. suffix
-								else
-									cheat.numbervalue.Text = tostring(cheat.value) .. suffix
-								end
+UIS.InputChanged:Connect(function(input)
+    if not dragging then return end
+    if input.UserInputType == Enum.UserInputType.MouseMovement and not activeTouch then
+        updateSlider(UIS:GetMouseLocation())
+    elseif input.UserInputType == Enum.UserInputType.Touch and input == activeTouch then
+        updateSlider(input.Position)
+    end
+end)
 
-								if callback then
-                                    local s, e = pcall(function()
-                                        if data.precise then
-                                            callback(math.ceil(cheat.value))
-                                        else
-                                            callback(cheat.value)
-                                        end
-									end)
+UIS.InputEnded:Connect(function(input)
+    if (input.UserInputType == Enum.UserInputType.MouseButton1 and not activeTouch) or input == activeTouch then
+        dragging = false
+        activeTouch = nil
 
-									if not s then warn("error: ".. e) end
-								end
+        finity.gs["TweenService"]:Create(cheat.visiframe, TweenInfo.new(0.1), {
+            ImageColor3 = theme.slider_color
+        }):Play()
 
-								finity.gs["TweenService"]:Create(cheat.visiframe, TweenInfo.new(0.1), {
-									Size = UDim2.new(size / 150, 0, 1, 0),
-								ImageColor3 = theme.slider_color_sliding
-                                }):Play()
-                                
-                                local Position = UDim2.new(size / 150, 5, 0.5, 0);
+        finity.gs["TweenService"]:Create(cheat.numbervalue, TweenInfo.new(0.1), {
+            TextTransparency = 1
+        }):Play()
+    end
+end)
 
-                                if Position.Width.Scale >= 0.6 then
-                                    Position = UDim2.new(1, -cheat.numbervalue.TextBounds.X, 0.5, 10);
-                                end
+cheat.visiframe.Parent = cheat.sliderbar
+cheat.numbervalue.Parent = cheat.sliderbar
+cheat.sliderbar.Parent = cheat.container
 
-								finity.gs["TweenService"]:Create(cheat.numbervalue, TweenInfo.new(0.1), {
-									Position = Position,
-									TextTransparency = 0
-								}):Play()
-							end)
-
-							releaseconnection = finity.gs["UserInputService"].InputEnded:Connect(function(Mouse)
-								if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
-
-									finity.gs["TweenService"]:Create(cheat.visiframe, TweenInfo.new(0.1), {
-										ImageColor3 = theme.slider_color
-									}):Play()
-
-									finity.gs["TweenService"]:Create(cheat.numbervalue, TweenInfo.new(0.1), {
-										TextTransparency = 1
-									}):Play()
-
-									moveconnection:Disconnect()
-									moveconnection = nil
-									releaseconnection:Disconnect()
-									releaseconnection = nil
-								end
-							end)
-						end)
-
-						cheat.visiframe.Parent = cheat.sliderbar
-						cheat.numbervalue.Parent = cheat.sliderbar
-						cheat.sliderbar.Parent = cheat.container
-					elseif string.lower(kind) == "button" then
-						local button_text = data and data.text
 
 						cheat.background = finity:Create("ImageLabel", {
 							Name = "Background",
