@@ -1227,7 +1227,16 @@ cheat.sliderbar.Parent = cheat.container
 
 --Slider
 
--- ===================== Кнопка =====================
+-- Кнопка
+-- Создаём контейнер всегда
+cheat.container = finity:Create("Frame", {
+    Name = "CheatContainer",
+    BackgroundTransparency = 1,
+    Size = UDim2.new(1, 0, 0, 30), -- высота кнопки или слайдера
+    Position = UDim2.new(0, 0, 0, 0)
+})
+cheat.container.Parent = parentFrame -- parentFrame: это UI, куда ты добавляешь все читы
+
 if string.lower(kind) == "button" then
     local button_text = data and data.text or "Button"
 
@@ -1242,21 +1251,20 @@ if string.lower(kind) == "button" then
         ImageTransparency = 0.5,
         ScaleType = Enum.ScaleType.Slice,
         SliceCenter = Rect.new(100, 100, 100, 100),
-        SliceScale = 0.02
+        SliceScale = 0.02,
+        Parent = cheat.container
     })
 
     cheat.button = finity:Create("TextButton", {
         Name = "Button",
-        BackgroundColor3 = Color3.new(1, 1, 1),
         BackgroundTransparency = 1,
-        Position = UDim2.new(0, 0, 0, 0),
         Size = UDim2.new(1, 0, 1, 0),
-        ZIndex = 2,
         Font = Enum.Font.Gotham,
         Text = button_text,
         TextColor3 = theme.textbox_text,
         TextSize = 13,
-        TextXAlignment = Enum.TextXAlignment.Center
+        TextXAlignment = Enum.TextXAlignment.Center,
+        Parent = cheat.container
     })
 
     local TweenService = finity.gs["TweenService"]
@@ -1284,10 +1292,8 @@ if string.lower(kind) == "button" then
             if not s then warn("error: "..e) end
         end
     end
-
-    cheat.background.Parent = cheat.container
-    cheat.button.Parent = cheat.container
 end
+
 
 -- кнопка
 
