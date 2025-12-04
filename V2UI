@@ -1130,6 +1130,8 @@ self2.container = self:Create("ImageLabel", {
 								if not s then warn("error: ".. e) end
 							end
                         end
+						
+-- Slider
 
                         function cheat:SetValue(value)
     local size = math.clamp(value - cheat.sliderbar.AbsolutePosition.X, 0, cheat.sliderbar.AbsoluteSize.X)
@@ -1223,9 +1225,11 @@ cheat.visiframe.Parent = cheat.sliderbar
 cheat.numbervalue.Parent = cheat.sliderbar
 cheat.sliderbar.Parent = cheat.container
 
+--Slider
+
 -- ===================== Кнопка =====================
 if string.lower(kind) == "button" then
-    local button_text = data and data.text
+    local button_text = data and data.text or "Button"
 
     cheat.background = finity:Create("ImageLabel", {
         Name = "Background",
@@ -1249,11 +1253,13 @@ if string.lower(kind) == "button" then
         Size = UDim2.new(1, 0, 1, 0),
         ZIndex = 2,
         Font = Enum.Font.Gotham,
-        Text = button_text or "Button",
+        Text = button_text,
         TextColor3 = theme.textbox_text,
         TextSize = 13,
         TextXAlignment = Enum.TextXAlignment.Center
     })
+
+    local TweenService = finity.gs["TweenService"]
 
     cheat.button.MouseEnter:Connect(function()
         TweenService:Create(cheat.background, TweenInfo.new(0.2), {ImageColor3 = theme.button_background_hover}):Play()
@@ -1268,20 +1274,22 @@ if string.lower(kind) == "button" then
         TweenService:Create(cheat.background, TweenInfo.new(0.2), {ImageColor3 = theme.button_background}):Play()
         if callback then
             local s, e = pcall(callback)
-            if not s then warn("error: ".. e) end
+            if not s then warn("error: "..e) end
         end
     end)
 
     function cheat:Fire()
         if callback then
             local s, e = pcall(callback)
-            if not s then warn("error: ".. e) end
+            if not s then warn("error: "..e) end
         end
     end
 
     cheat.background.Parent = cheat.container
     cheat.button.Parent = cheat.container
 end
+
+-- кнопка
 
 					
 					elseif string.lower(kind) == "keybind" or string.lower(kind) == "bind" then
