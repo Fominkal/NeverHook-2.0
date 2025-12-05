@@ -222,7 +222,7 @@ do
                     
                     Button1 = Color3.fromRGB(15, 15, 15);
                     Button2 = Color3.fromRGB(20, 20, 20);
-                    Button3 = Color3.fromRGB(35, 35, 35);
+                    Button3 = Color3.fromRGB(134, 53, 255);
                     Button4 = Color3.fromRGB(40, 40, 40);
                     
                     Stroke = Color3.fromRGB(34, 34, 34);
