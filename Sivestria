@@ -1000,7 +1000,7 @@ do
                     local icon = Instance.new('ImageLabel') do 
                         icon.BackgroundTransparency = 1
                         icon.BorderSizePixel = 0
-                        icon.Image = 'rbxassetid://5242139522'
+                        icon.Image = 'rbxassetid://10152328589'
                         icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
                         icon.ImageTransparency = 0
                         icon.Name = '#icon'
@@ -4430,234 +4430,514 @@ do
         elemClasses.section = section
     end
     -- TOGGLE
-    do
-    local toggle = {} do
-        toggle.__index = toggle
-        setmetatable(toggle, elemClasses.baseElement)
+    do 
+        
+        local toggle = {} do 
+            toggle.__index = toggle 
+            setmetatable(toggle, elemClasses.baseElement)
+            
+            toggle.class = 'toggle'
+            
+            do
+                local instances = {} do 
+                    local controlFrame = Instance.new('Frame')
+                    controlFrame.BackgroundTransparency = 1
+                    controlFrame.Name = '#control'
+                    controlFrame.Size = UDim2.new(1, 0, 0, 20)
+                    controlFrame.Visible = true
+                    controlFrame.ZIndex = 34
+                    
+                    instances.controlFrame = controlFrame
 
-        toggle.class = 'toggle'
-
-        do
-            local instances = {} do
-                local controlFrame = Instance.new('Frame')
-                controlFrame.BackgroundTransparency = 1
-                controlFrame.Name = '#control'
-                controlFrame.Size = UDim2.new(1, 0, 0, 20)
-                controlFrame.Visible = true
-                controlFrame.ZIndex = 34
-
-                instances.controlFrame = controlFrame
-
-                local backToggle = Instance.new('TextButton') do
-                    backToggle.BackgroundTransparency = 1
-                    backToggle.Name = '#back-toggle'
-                    backToggle.Size = UDim2.fromScale(1, 1)
-                    backToggle.Text = ''
-                    backToggle.TextTransparency = 1
-                    backToggle.ZIndex = 34
-                    backToggle.Parent = controlFrame
-
-                    local label = Instance.new('TextLabel') do
-                        label.BackgroundTransparency = 1
-                        label.Font = 'SourceSans'
-                        label.Name = '#label'
-                        label.RichText = true
-                        label.Size = UDim2.fromScale(1, 1)
-                        label.Text = 'toggle'
-                        label.TextColor3 = theme.TextPrimary
-                        label.TextSize = 14
-                        label.TextStrokeColor3 = theme.TextStroke
-                        label.TextStrokeTransparency = 0.8
-                        label.TextTransparency = 0
-                        label.TextWrapped = false
-                        label.TextXAlignment = 'Left'
-                        label.TextYAlignment = 'Center'
-                        label.Visible = true
-                        label.ZIndex = 35
-                        label.Parent = backToggle
-
-                        local padding = Instance.new('UIPadding') do
-                            padding.Name = '#padding'
-                            padding.PaddingLeft = UDim.new(0, 6)
-                            padding.Parent = label
+                    local backToggle = Instance.new('TextButton') do 
+                        backToggle.BackgroundTransparency = 1
+                        backToggle.Name = '#back-toggle'
+                        backToggle.Size = UDim2.fromScale(1, 1)
+                        backToggle.Text = ''
+                        backToggle.TextTransparency = 1
+                        backToggle.ZIndex = 34
+                        
+                        backToggle.Parent = controlFrame
+                        
+                        local label = Instance.new('TextLabel') do 
+                            label.BackgroundTransparency = 1
+                            label.Font = 'SourceSans'
+                            label.Name = '#label'
+                            label.RichText = true
+                            label.Size = UDim2.fromScale(1, 1)
+                            label.Text = 'toggle'
+                            label.TextColor3 = theme.TextPrimary
+                            label.TextSize = 14
+                            label.TextStrokeColor3 = theme.TextStroke
+                            label.TextStrokeTransparency = 0.8
+                            label.TextTransparency = 0
+                            label.TextWrapped = false
+                            label.TextXAlignment = 'Left'
+                            label.TextYAlignment = 'Center'
+                            label.Visible = true
+                            label.ZIndex = 35
+                            
+                            label.Parent = backToggle
+                            
+                            local padding = Instance.new('UIPadding') do 
+                                padding.Name = '#padding'
+                                padding.PaddingLeft = UDim.new(0, 6)
+                                
+                                padding.Parent = label
+                            end
                         end
-                    end
-
-                    local toggleFrame = Instance.new('Frame') do
-                        toggleFrame.Active = true
-                        toggleFrame.AnchorPoint = Vector2.new(1, 0)
-                        toggleFrame.BackgroundColor3 = theme.Button1
-                        toggleFrame.Name = '#toggle'
-                        toggleFrame.Position = UDim2.new(1, -3, 0, 2)
-                        toggleFrame.Size = UDim2.fromOffset(16, 16)
-                        toggleFrame.Visible = true
-                        toggleFrame.ZIndex = 35
-                        toggleFrame.Parent = backToggle
-
-                        local round = Instance.new('UICorner') do
-                            round.CornerRadius = UDim.new(0, rounding and 2 or 0)
-                            round.Name = '#round'
-                            round.Parent = toggleFrame
-                        end
-
-                        local stroke = Instance.new('UIStroke') do
-                            stroke.ApplyStrokeMode = 'Border'
-                            stroke.Color = theme.Stroke
-                            stroke.LineJoinMode = 'Round'
-                            stroke.Name = '#stroke'
-                            stroke.Thickness = 1
-                            stroke.Parent = toggleFrame
-                        end
-
-                        local icon = Instance.new('ImageLabel') do
-                            icon.Active = false
-                            icon.BackgroundTransparency = 1
-                            icon.BorderSizePixel = 0
-                            icon.Image = 'rbxassetid://9801456486'
-                            icon.ImageColor3 = theme.Secondary
-                            icon.Name = '#icon'
-                            icon.Position = UDim2.fromOffset(0, 0)
-                            icon.Rotation = 360
-                            icon.Size = UDim2.fromScale(1, 1)
-                            icon.Visible = true
-                            icon.ZIndex = 35
-                            icon.Parent = toggleFrame
-
-                            local gradient = Instance.new('UIGradient') do
-                                gradient.Color = ColorSequence.new(theme.ControlGradient1, theme.ControlGradient2)
-                                gradient.Enabled = true
-                                gradient.Name = '#gradient'
-                                gradient.Rotation = 90
-                                gradient.Parent = icon
+                        
+                        local toggle = Instance.new('Frame') do 
+                            toggle.Active = true
+                            toggle.AnchorPoint = Vector2.new(1, 0)
+                            toggle.BackgroundColor3 = theme.Button1
+                            toggle.Name = '#toggle'
+                            toggle.Position = UDim2.new(1, -3, 0, 2)
+                            toggle.Size = UDim2.fromOffset(16, 16)
+                            toggle.Visible = true
+                            toggle.ZIndex = 35
+                            
+                            toggle.Parent = backToggle
+                            
+                            local round = Instance.new('UICorner') do 
+                                round.CornerRadius = UDim.new(0, rounding and 2 or 0)
+                                round.Name = '#round'
+                                
+                                round.Parent = toggle
+                            end
+                            
+                            local stroke = Instance.new('UIStroke') do 
+                                stroke.ApplyStrokeMode = 'Border'
+                                stroke.Color = theme.Stroke
+                                stroke.LineJoinMode = 'Round'
+                                stroke.Name = '#stroke'
+                                stroke.Thickness = 1 
+                                
+                                stroke.Parent = toggle
+                            end
+                            
+                            local icon = Instance.new('ImageLabel') do 
+                                icon.Active = false
+                                icon.BackgroundTransparency = 1
+                                icon.BorderSizePixel = 0
+                                icon.Image = 'rbxassetid://9801456486'
+                                icon.ImageColor3 = theme.Secondary
+                                icon.Name = '#icon'
+                                icon.Position = UDim2.fromOffset(0, 0)
+                                icon.Rotation = 360
+                                icon.Size = UDim2.fromScale(1, 1)
+                                icon.Visible = true
+                                icon.ZIndex = 35 
+                                
+                                icon.Parent = toggle
+                                
+                                local gradient = Instance.new('UIGradient') do 
+                                    gradient.Color = ColorSequence.new(
+                                        theme.ControlGradient1,
+                                        theme.ControlGradient2
+                                    )
+                                    gradient.Enabled = true
+                                    gradient.Name = '#gradient'
+                                    gradient.Rotation = 90
+                                    
+                                    gradient.Parent = icon
+                                end
                             end
                         end
                     end
                 end
+                toggle.instances = instances 
             end
-            toggle.instances = instances
-        end
+            
+            toggle.toggled = false
+            toggle.focused = false
+            toggle.toggle = function(self) 
+                
+                local newState = not self.toggled
+                self.toggled = newState
+                local toggle = self.instances.toggle
+                local icon = toggle['#icon']
+                
+                
+                if (newState) then
+                    icon.Image = 'rbxassetid://9801457539'
+                    tween(icon, {
+                        Rotation = 0,
+                        ImageColor3 = theme.Primary
+                    }, 0.3, 1)
 
-        toggle.toggled = false
-        toggle.focused = false
+                    
+                    if (self.focused) then
+                        tween(toggle, {BackgroundColor3 = theme.Button4}, 0.2, 1)
+                    else
+                        tween(toggle, {BackgroundColor3 = theme.Button3}, 0.2, 1)
+                    end
+                    
+                    self:fireEvent('onEnable')
+                else
+                    icon.Image = 'rbxassetid://9801456486'
+                    tween(icon, {
+                        Rotation = 360,
+                        ImageColor3 = theme.Secondary
+                    }, 0.3, 1)
+                    
+                    if (self.focused) then
+                        tween(toggle, {BackgroundColor3 = theme.Button2}, 0.2, 1)
+                    else
+                        tween(toggle, {BackgroundColor3 = theme.Button1}, 0.2, 1)
+                    end
 
-        toggle.updateColor = function(self)
-            local tog = self.instances.toggle
-            if self.toggled then
-                tog.BackgroundColor3 = self.focused and theme.Button4 or theme.Button3
-            else
-                tog.BackgroundColor3 = self.focused and theme.Button2 or theme.Button1
+                    self:fireEvent('onDisable')
+                end
+                
+                
+                self:fireEvent('onToggle', newState)
+                return self
             end
-            tog['#stroke'].Color = self.focused and theme.StrokeHover or theme.Stroke
-        end
+            
+            toggle.__hotkeyFunc = toggle.toggle
+            
+            toggle.enable = function(self) 
+                self.toggled = true
+                
+                local toggle = self.instances.toggle
+                local icon = toggle['#icon']
 
-        toggle.toggle = function(self)
-            self.toggled = not self.toggled
-            local icon = self.instances.toggle['#icon']
-            if self.toggled then
                 icon.Image = 'rbxassetid://9801457539'
-                tween(icon, {Rotation = 0, ImageColor3 = theme.Primary}, 0.3, 1)
-            else
+                tween(icon, {
+                    Rotation = 0,
+                    ImageColor3 = theme.Primary
+                }, 0.3, 1)
+                
+                if (self.focused) then
+                    tween(toggle, {BackgroundColor3 = theme.Button4}, 0.2, 1)
+                    tween(toggle['#stroke'], {Color = theme.StrokeHover}, 0.2, 1)
+                else
+                    tween(toggle, {BackgroundColor3 = theme.Button3}, 0.2, 1)
+                    tween(toggle['#stroke'], {Color = theme.Stroke}, 0.2, 1)
+                end
+                
+                self:fireEvent('onEnable')
+                self:fireEvent('onToggle', true)
+                return self
+            end
+            
+            toggle.disable = function(self) 
+                self.toggled = false
+                
+                local toggle = self.instances.toggle
+                local icon = toggle['#icon']
+                
                 icon.Image = 'rbxassetid://9801456486'
-                tween(icon, {Rotation = 360, ImageColor3 = theme.Secondary}, 0.3, 1)
-            end
-            self:updateColor()
-            self:fireEvent(self.toggled and 'onEnable' or 'onDisable')
-            self:fireEvent('onToggle', self.toggled)
-            return self
-        end
-
-        toggle.__hotkeyFunc = toggle.toggle
-
-        toggle.enable = function(self)
-            self.toggled = true
-            local icon = self.instances.toggle['#icon']
-            icon.Image = 'rbxassetid://9801457539'
-            tween(icon, {Rotation = 0, ImageColor3 = theme.Primary}, 0.3, 1)
-            self:updateColor()
-            self:fireEvent('onEnable')
-            self:fireEvent('onToggle', true)
-            return self
-        end
-
-        toggle.disable = function(self)
-            self.toggled = false
-            local icon = self.instances.toggle['#icon']
-            icon.Image = 'rbxassetid://9801456486'
-            tween(icon, {Rotation = 360, ImageColor3 = theme.Secondary}, 0.3, 1)
-            self:updateColor()
-            self:fireEvent('onDisable')
-            self:fireEvent('onToggle', false)
-            return self
-        end
-
-        toggle.reset = function(self)
-            self:toggle()
-            self:toggle()
-        end
-
-        toggle.signals = {
-            backToggle = {
-                MouseEnter = function(inst, toggle)
-                    toggle.focused = true
-                    toggle:showTooltip()
-                    toggle:updateColor()
-                end,
-                MouseLeave = function(inst, toggle)
-                    toggle.focused = false
-                    toggle:hideTooltip()
-                    toggle:updateColor()
-                end,
-                MouseButton1Click = function(inst, toggle)
-                    toggle:toggle()
+                tween(icon, {
+                    Rotation = 360,
+                    ImageColor3 = theme.Secondary
+                }, 0.3, 1)
+                
+                
+                
+                if (self.focused) then
+                    tween(toggle, {BackgroundColor3 = theme.Button2}, 0.2, 1)
+                    tween(toggle['#stroke'], {Color = theme.StrokeHover}, 0.2, 1)
+                else
+                    tween(toggle, {BackgroundColor3 = theme.Button1}, 0.2, 1)
+                    tween(toggle['#stroke'], {Color = theme.Stroke}, 0.2, 1)
                 end
+                
+                self:fireEvent('onDisable')
+                self:fireEvent('onToggle', false)
+                return self
+            end
+            
+            toggle.reset = function(self) 
+                self:toggle()
+                self:toggle()
+            end
+            
+            toggle.signals = {
+                backToggle = {
+                    MouseEnter = function(inst, toggle) 
+                        toggle.focused = true
+                        toggle:showTooltip()
+                        
+                        local togInst = toggle.instances.toggle
+                        
+                        if (toggle.toggled) then
+                            tween(togInst, {BackgroundColor3 = theme.Button4}, 0.2, 1)
+                        else
+                            tween(togInst, {BackgroundColor3 = theme.Button2}, 0.2, 1)
+                        end
+                        tween(togInst['#stroke'], {Color = theme.StrokeHover}, 0.2, 1)
+                    end,
+                    MouseLeave = function(inst, toggle) 
+                        toggle.focused = false
+                        toggle:hideTooltip()
+                        
+                        
+                        local togInst = toggle.instances.toggle
+                        if (toggle.toggled) then
+                            tween(togInst, {BackgroundColor3 = theme.Button3}, 0.2, 1)
+                        else
+                            tween(togInst, {BackgroundColor3 = theme.Button1}, 0.2, 1)
+                        end
+                        tween(togInst['#stroke'], {Color = theme.Stroke}, 0.2, 1)
+                    end,
+                    MouseButton1Click = function(inst, toggle) 
+                        toggle:toggle()
+                    end
+                }
             }
-        }
-
-        toggle.new = function(self)
-            local new = setmetatable({}, self)
-            new.binds = {}
-            local instances = {}
-            instances.controlFrame = self.instances.controlFrame:Clone()
-            instances.backToggle = instances.controlFrame['#back-toggle']
-            instances.label = instances.backToggle['#label']
-            instances.toggle = instances.backToggle['#toggle']
-            for i, signals in pairs(self.signals) do
-                local inst = instances[i]
-                for signal, func in pairs(signals) do
-                    inst[signal]:Connect(function()
-                        func(inst, new)
-                    end)
+            --toggle.signals.backToggle = toggle.signals.toggle
+            
+            toggle.new = function(self) 
+                local new = setmetatable({}, self)
+                new.binds = {}
+                
+                local instances = {}
+                instances.controlFrame = self.instances.controlFrame:Clone()
+                instances.backToggle = instances.controlFrame['#back-toggle']
+                instances.label = instances.backToggle['#label']
+                instances.toggle = instances.backToggle['#toggle']
+                
+                for i, signals in pairs(self.signals) do 
+                    local inst = instances[i]
+                    for signal, func in pairs(signals) do
+                        local h = inst[signal]:Connect(function() 
+                            func(inst, new)
+                        end)
+                    end
                 end
+                
+                new.instances = instances
+                return new
             end
-            new.instances = instances
-            return new
-        end
-
-        toggle.getState = function(self) return self.toggled end
-        toggle.isEnabled = toggle.getState
-        toggle.getValue = toggle.getState
-
-        elemClasses.section.addToggle = function(self, settings, callback)
-            if not typeof(settings) == 'table' then return error('expected type table for settings', 2) end
-            local s_title = settings.text or 'nil'
-            local s_state = settings.state or false
-            local tog = toggle:new()
-            tog.section = self
-            tog.name = s_title
-            table.insert(self.controls, tog)
-            tog.instances.label.Text = s_title
-            if s_state then tog:enable() end
-            tog.instances.controlFrame.Parent = self.instances.controlMenu
-            if typeof(callback) == 'function' then
-                tog:bindToEvent('onToggle', callback)
+            
+            toggle.getState = function(self) return self.toggled end
+            toggle.isEnabled = toggle.getState
+            toggle.getValue = toggle.getState
+            
+            elemClasses.section.addToggle = function(self, settings, callback) 
+                if (not typeof(settings) == 'table') then
+                    return error('expected type table for settings', 2) 
+                end
+                
+                local s_title = settings.text or 'nil'
+                local s_state = settings.state or false
+                
+                local toggle = toggle:new()
+                toggle.section = self 
+                toggle.name = s_title
+                table.insert(self.controls, toggle)
+                
+                toggle.instances.label.Text = s_title
+                if (s_state) then 
+                    toggle:enable()
+                end
+                toggle.instances.controlFrame.Parent = self.instances.controlMenu
+                
+                if (typeof(callback) == 'function') then
+                    toggle:bindToEvent('onToggle', callback) 
+                end
+                return toggle
             end
-            return tog
         end
-
+        -- add class
         elemClasses.toggle = toggle
     end
-end
+    -- BUTTONS
+    do
+        -- SMALL BUTTON
+        do 
+            
+            local buttonSmall = {} do 
+                buttonSmall.__index = buttonSmall 
+                setmetatable(buttonSmall, elemClasses.baseElement)
+                
+                buttonSmall.class = 'buttonSmall'
+                
+                do
+                    local instances = {} do 
+                        local controlFrame = Instance.new('Frame')
+                        controlFrame.BackgroundTransparency = 1
+                        controlFrame.Name = '#control'
+                        controlFrame.Size = UDim2.new(1, 0, 0, 20)
+                        controlFrame.Visible = true
+                        controlFrame.ZIndex = 34
+                        
+                        instances.controlFrame = controlFrame
 
+                        local clickSensor = Instance.new('TextButton') do 
+                            clickSensor.BackgroundTransparency = 1
+                            clickSensor.Name = '#click-sensor'
+                            clickSensor.Size = UDim2.fromScale(1, 1)
+                            clickSensor.Text = ''
+                            clickSensor.TextTransparency = 1
+                            clickSensor.ZIndex = 34
+                            
+                            clickSensor.Parent = controlFrame
+                            
+                            local label = Instance.new('TextLabel') do 
+                                label.BackgroundTransparency = 1
+                                label.Font = 'SourceSans'
+                                label.Name = '#label'
+                                label.RichText = true
+                                label.Size = UDim2.fromScale(1, 1)
+                                label.Text = 'button'
+                                label.TextColor3 = theme.TextPrimary
+                                label.TextSize = 14
+                                label.TextStrokeColor3 = theme.TextStroke
+                                label.TextStrokeTransparency = 0.8
+                                label.TextTransparency = 0
+                                label.TextWrapped = false
+                                label.TextXAlignment = 'Left'
+                                label.TextYAlignment = 'Center'
+                                label.Visible = true
+                                label.ZIndex = 35
+                                
+                                label.Parent = clickSensor
+                                
+                                local padding = Instance.new('UIPadding') do 
+                                    padding.Name = '#padding'
+                                    padding.PaddingLeft = UDim.new(0, 6)
+                                    
+                                    padding.Parent = label
+                                end
+                            end
+                            
+                            local button = Instance.new('Frame') do 
+                                button.Active = true
+                                button.AnchorPoint = Vector2.new(1, 0)
+                                button.BackgroundColor3 = theme.Button1
+                                button.Name = '#button'
+                                button.Position = UDim2.new(1, -3, 0, 2)
+                                button.Size = UDim2.fromOffset(16, 16)
+                                button.Visible = true
+                                button.ZIndex = 35
+                                
+                                button.Parent = clickSensor
+                                
+                                local round = Instance.new('UICorner') do 
+                                    round.CornerRadius = UDim.new(0, rounding and 2 or 0)
+                                    round.Name = '#round'
+                                    
+                                    round.Parent = button
+                                end
+                                
+                                local stroke = Instance.new('UIStroke') do 
+                                    stroke.ApplyStrokeMode = 'Border'
+                                    stroke.Color = theme.Stroke
+                                    stroke.LineJoinMode = 'Round'
+                                    stroke.Name = '#stroke'
+                                    stroke.Thickness = 1 
+                                    
+                                    stroke.Parent = button
+                                end
+                                
+                                local icon = Instance.new('ImageLabel') do 
+                                    icon.Active = false
+                                    icon.BackgroundTransparency = 1
+                                    icon.BorderSizePixel = 0
+                                    icon.Image = 'rbxassetid://9801455339'
+                                    icon.ImageColor3 = Color3.fromRGB(255, 255, 255)
+                                    icon.Name = '#icon'
+                                    icon.Position = UDim2.fromOffset(0, 0)
+                                    icon.Rotation = 360
+                                    icon.Size = UDim2.fromScale(1, 1)
+                                    icon.Visible = true
+                                    icon.ZIndex = 35 
+                                    
+                                    icon.Parent = button
+                                    
+                                    local gradient = Instance.new('UIGradient') do 
+                                        gradient.Color = ColorSequence.new(
+                                            theme.ControlGradient1,
+                                            theme.ControlGradient2
+                                        )
+                                        gradient.Enabled = true
+                                        gradient.Name = '#gradient'
+                                        gradient.Rotation = 90
+                                        
+                                        gradient.Parent = icon
+                                    end
+                                end
+                            end
+                        end
+                    end
+                    buttonSmall.instances = instances 
+                end
+                
+                buttonSmall.focused = false
+                buttonSmall.click = function(self) 
+                    self:fireEvent('onClick')
+                    
+                    local button = self.instances.button
+                    local icon = button['#icon']
+                    
+                    if (self.focused) then
+                        button.BackgroundColor3 = theme.Button4
+                        tween(button, {BackgroundColor3 = theme.Button2}, 1, 1)
+                    else
+                        button.BackgroundColor3 = theme.Button3
+                        tween(button, {BackgroundColor3 = theme.Button1}, 1, 1)
+                    end
+                    icon.ImageColor3 = theme.Primary
+                    tween(icon, {ImageColor3 = Color3.fromRGB(255, 255, 255)}, 1, 1)
+                    return self
+                end
+                buttonSmall.__hotkeyFunc = buttonSmall.click
+                
+                buttonSmall.signals = {
+                    clickSensor = {
+                        MouseEnter = function(inst, button) 
+                            button.focused = true
+                            button:showTooltip()
+
+                            local inst = button.instances.button
+                            tween(inst, {BackgroundColor3 = theme.Button2}, 0.2, 1)
+                            tween(inst['#stroke'], {Color = theme.StrokeHover}, 0.2, 1)
+                        end,
+                        MouseLeave = function(inst, button) 
+                            button.focused = false
+                            button:hideTooltip()
+                            
+                            local inst = button.instances.button
+                            tween(inst, {BackgroundColor3 = theme.Button1}, 0.2, 1)
+                            tween(inst['#stroke'], {Color = theme.Stroke}, 0.2, 1)
+                        end,
+                        MouseButton1Click = function(inst, button) 
+                            button:click()
+                        end
+                    }
+                }
+                
+                buttonSmall.new = function(self) 
+                    
+                    local new = setmetatable({}, self)
+                    new.binds = {}
+                    
+                    local instances = {}
+                    instances.controlFrame = self.instances.controlFrame:Clone()
+                    instances.clickSensor = instances.controlFrame['#click-sensor']
+                    instances.label = instances.clickSensor['#label']
+                    instances.button = instances.clickSensor['#button']
+                    
+                    for i, signals in pairs(self.signals) do 
+                        local inst = instances[i]
+                        for signal, func in pairs(signals) do
+                            local h = inst[signal]:Connect(function() 
+                                func(inst, new)
+                            end)
+                        end
+                    end
+                    
+                    new.instances = instances
+                    return new
+                end
+            end
+            -- add class
+            elemClasses.buttonSmall = buttonSmall
+        end
+        
         -- LARGE BUTTON
         do 
             
