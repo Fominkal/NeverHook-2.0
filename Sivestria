@@ -210,35 +210,35 @@ do
                     ControlGradient1 = Color3.fromRGB(255, 255, 255);
                     ControlGradient2 = Color3.fromRGB(192, 192, 192);
                 }
-            elseif (theme == 'grape') then       -- purple
-                
-                theme = {
-                    Primary = Color3.fromRGB(134, 53, 255);
-                    Secondary = Color3.fromRGB(211, 53, 255);
-                    
-                    Window1 = Color3.fromRGB(20, 20, 20);
-                    Window2 = Color3.fromRGB(10, 10, 10);
-                    Window3 = Color3.fromRGB(15, 15, 15);
-                    
-                    Button1 = Color3.fromRGB(15, 15, 15);
-                    Button2 = Color3.fromRGB(20, 20, 20);
-                    Button3 = Color3.fromRGB(35, 35, 35);
-                    Button4 = Color3.fromRGB(40, 40, 40);
-                    
-                    Stroke = Color3.fromRGB(34, 34, 34);
-                    StrokeHover = Color3.fromRGB(89, 49, 150);
-                    
-                    Inset1 = Color3.fromRGB(5, 5, 5);
-                    Inset2 = Color3.fromRGB(0, 0, 0);
-                    Inset3 = Color3.fromRGB(3, 3, 3);
-                    
-                    TextPrimary = Color3.fromRGB(255, 255, 255);
-                    TextStroke = Color3.fromRGB(0, 0, 0);
-                    TextDim = Color3.fromRGB(74, 42, 122);
-                    
-                    ControlGradient1 = Color3.fromRGB(255, 255, 255);
-                    ControlGradient2 = Color3.fromRGB(192, 192, 192);
-                }
+            elseif (theme == 'grape') then       -- improved purple
+    theme = {
+        Primary = Color3.fromRGB(158, 77, 255);       -- яркий фиолетовый для включенного toggle/акцентов
+        Secondary = Color3.fromRGB(220, 120, 255);   -- светлый пурпур для выключенного toggle/акцентов
+        
+        Window1 = Color3.fromRGB(25, 25, 30);        -- основной фон окон
+        Window2 = Color3.fromRGB(15, 15, 20);        -- тёмные панели/секции
+        Window3 = Color3.fromRGB(20, 20, 25);        -- границы/тени
+        
+        Button1 = Color3.fromRGB(30, 30, 40);        -- обычное выключенное состояние
+        Button2 = Color3.fromRGB(45, 45, 60);        -- hover выключенного
+        Button3 = Color3.fromRGB(75, 40, 180);       -- обычное включенного
+        Button4 = Color3.fromRGB(100, 60, 220);      -- hover включенного
+        
+        Stroke = Color3.fromRGB(60, 40, 90);         -- обычная рамка toggle/кнопки
+        StrokeHover = Color3.fromRGB(180, 80, 255);  -- рамка при наведении
+        
+        Inset1 = Color3.fromRGB(10, 10, 15);
+        Inset2 = Color3.fromRGB(5, 5, 10);
+        Inset3 = Color3.fromRGB(8, 8, 12);
+        
+        TextPrimary = Color3.fromRGB(245, 245, 255); -- основной текст, яркий
+        TextStroke = Color3.fromRGB(0, 0, 0);        -- контур текста
+        TextDim = Color3.fromRGB(130, 80, 200);      -- приглушенный текст / подсказки
+        
+        ControlGradient1 = Color3.fromRGB(200, 180, 255);
+        ControlGradient2 = Color3.fromRGB(140, 80, 255);
+    }
+
             elseif (theme == 'watermelon') then  -- legacy red-aqua
                 theme = nil
             end
