@@ -7868,31 +7868,7 @@ do
     end
 end
 
-function ui.setTheme(name)
-    if not ui.internalThemeList then
-        warn("Theme list not detected in UI library")
-        return
-    end
 
-    local newTheme = ui.internalThemeList[name]
-    if not newTheme then
-        warn("Theme not found:", name)
-        return
-    end
-
-    -- применяем новую тему
-    ui.theme = name
-    ui.Theme = newTheme
-
-    -- обновляем все элементы UI
-    for _, control in pairs(ui.registeredControls or {}) do
-        if control.updateTheme then
-            control:updateTheme()
-        end
-    end
-
-    print("UI Theme switched to:", name)
-end
 
 
 return ui 
