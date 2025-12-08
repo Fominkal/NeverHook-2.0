@@ -182,35 +182,47 @@ do
                     ControlGradient1 = Color3.fromRGB(255, 255, 255);
                     ControlGradient2 = Color3.fromRGB(192, 192, 192);
                 }
-            elseif (theme == 'blueberry') then   -- blue
-                theme = {
-                    Primary = Color3.fromRGB(91, 77, 249);
-                    Secondary = Color3.fromRGB(130, 76, 247);
-                    
-                    Window1 = Color3.fromRGB(20, 20, 23);
-                    Window2 = Color3.fromRGB(12, 12, 15);
-                    Window3 = Color3.fromRGB(15, 15, 18);
-                    
-                    Button1 = Color3.fromRGB(18, 18, 21);
-                    Button2 = Color3.fromRGB(21, 21, 24);
-                    Button3 = Color3.fromRGB(38, 38, 41);
-                    Button4 = Color3.fromRGB(41, 41, 44);
-                    
-                    Stroke = Color3.fromRGB(50, 50, 53);
-                    StrokeHover = Color3.fromRGB(60, 60, 63);
-                    
-                    Inset1 = Color3.fromRGB(15, 15, 18);
-                    Inset2 = Color3.fromRGB(7, 7, 10);
-                    Inset3 = Color3.fromRGB(13, 13, 16);
-                    
-                    TextPrimary = Color3.fromRGB(255, 255, 255);
-                    TextStroke = Color3.fromRGB(0, 0, 0);
-                    TextDim = Color3.fromRGB(168, 168, 168);
-                    
-                    ControlGradient1 = Color3.fromRGB(255, 255, 255);
-                    ControlGradient2 = Color3.fromRGB(192, 192, 192);
-                }
-            elseif (theme == 'grape') then   -- Dark Grape Rework
+            elseif (theme == 'neverlose') then   -- Neverlose Blue
+    theme = {
+
+        -- НЕОНОВЫЕ АКЦЕНТЫ
+        Primary        = Color3.fromRGB(0, 120, 255);   -- NL glow blue
+        Secondary      = Color3.fromRGB(0, 150, 255);   -- более яркое свечение
+
+        -- ТЁМНЫЕ ОКНА
+        Window1        = Color3.fromRGB(12, 14, 18);    -- глубокий тёмный фон (как NL)
+        Window2        = Color3.fromRGB(8, 9, 12);      -- боковые вкладки
+        Window3        = Color3.fromRGB(16, 18, 22);    -- границы / панельки
+
+        -- КНОПКИ / ТОГГЛЫ
+        Button1        = Color3.fromRGB(18, 20, 25);    -- выключено
+        Button2        = Color3.fromRGB(25, 28, 34);    -- hover выключено
+
+        Button3        = Color3.fromRGB(0, 110, 230);   -- включено (NL blue)
+        Button4        = Color3.fromRGB(0, 135, 255);   -- hover включено
+
+        -- РАМКИ
+        Stroke         = Color3.fromRGB(30, 35, 45);    -- базовая NL рамка
+        StrokeHover    = Color3.fromRGB(0, 140, 255);   -- яркий NL контур при наведении
+
+        -- ГЛУБИНА UI
+        Inset1         = Color3.fromRGB(10, 12, 15);
+        Inset2         = Color3.fromRGB(6, 7, 10);
+        Inset3         = Color3.fromRGB(12, 14, 18);
+
+        -- ТЕКСТ
+        TextPrimary    = Color3.fromRGB(230, 240, 255); -- голубовато-белый NL текст
+        TextDim        = Color3.fromRGB(140, 150, 170); -- приглушённый
+        TextStroke     = Color3.fromRGB(0, 0, 0);       -- лёгкая читаемость
+
+        -- АКЦЕНТНЫЕ ГРАДИЕНТЫ (NL-стиль)
+        ControlGradient1 = Color3.fromRGB(0, 170, 255); -- яркий верх
+        ControlGradient2 = Color3.fromRGB(0, 110, 210); -- глубина низ
+
+    }
+end
+
+            elseif (theme == 'sunset') then   -- Dark Grape Rework
     theme = {
 
         -- АКЦЕНТЫ (включённые элементы, важные кнопки)
@@ -289,6 +301,11 @@ do
         }
     end
 end
+
+
+themes["sunset"] = theme -- sunset theme
+themes["neverlose"] = theme -- neverlose theme
+
 
 
 -- screen gui 
