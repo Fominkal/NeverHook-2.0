@@ -301,10 +301,6 @@ do
 end
 
 
-themes["sunset"] = theme -- sunset theme
-themes["neverlose"] = theme -- neverlose theme
-
-
 
 -- screen gui 
 local uiScreen = Instance.new('ScreenGui') do 
