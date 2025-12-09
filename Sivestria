@@ -7803,187 +7803,92 @@ do
 	
     
     
-    -- THEMES RELOAD :)
-ui.setTheme = function(name)
-    if typeof(name) ~= "string" then
-        return error("ui.setTheme expected theme name (string)", 2)
+    -- unfinished
+    ui.setTheme = function(newTheme) 
+        if (typeof(theme) ~= 'table') then
+            return error('expected type table for theme', 2)
+        end
+        
+        theme = newTheme 
+        
     end
-
-    local new = nil
-
-    --------------------------------------------------------------------
-    --  ПОВТОРЯЕМ твою систему выбора тем (взято из начала файла)
-    --------------------------------------------------------------------
     
-    if name == 'cherry' then
-        new = {
-            Primary = Color3.fromRGB(249,22,52);
-            Secondary = Color3.fromRGB(247,22,149);
-            Window1 = Color3.fromRGB(11,11,11);
-            Window2 = Color3.fromRGB(5,5,5);
-            Window3 = Color3.fromRGB(8,8,8);
-            Button1 = Color3.fromRGB(12,12,12);
-            Button2 = Color3.fromRGB(15,15,15);
-            Button3 = Color3.fromRGB(21,21,21);
-            Button4 = Color3.fromRGB(24,24,24);
-            Stroke = Color3.fromRGB(30,30,30);
-            StrokeHover = Color3.fromRGB(83,23,31);
-            Inset1 = Color3.fromRGB(3,3,3);
-            Inset2 = Color3.fromRGB(1,1,1);
-            Inset3 = Color3.fromRGB(2,2,2);
-            TextPrimary = Color3.fromRGB(255,255,255);
-            TextStroke = Color3.fromRGB(0,0,0);
-            TextDim = Color3.fromRGB(164,164,164);
-            ControlGradient1 = Color3.fromRGB(255,255,255);
-            ControlGradient2 = Color3.fromRGB(200,200,200);
-        }
-
-    elseif name == 'orange' then
-        new = {
-            Primary = Color3.fromRGB(244,148,22);
-            Secondary = Color3.fromRGB(247,37,22);
-            Window1 = Color3.fromRGB(20,20,22);
-            Window2 = Color3.fromRGB(10,10,12);
-            Window3 = Color3.fromRGB(15,15,17);
-            Button1 = Color3.fromRGB(18,18,20);
-            Button2 = Color3.fromRGB(20,20,22);
-            Button3 = Color3.fromRGB(28,28,30);
-            Button4 = Color3.fromRGB(30,30,32);
-            Stroke = Color3.fromRGB(60,60,60);
-            StrokeHover = Color3.fromRGB(110,110,110);
-            Inset1 = Color3.fromRGB(10,10,12);
-            Inset2 = Color3.fromRGB(0,0,2);
-            Inset3 = Color3.fromRGB(5,5,7);
-            TextPrimary = Color3.fromRGB(255,255,255);
-            TextStroke = Color3.fromRGB(0,0,0);
-            TextDim = Color3.fromRGB(192,192,192);
-            ControlGradient1 = Color3.fromRGB(255,255,255);
-            ControlGradient2 = Color3.fromRGB(192,192,192);
-        }
-
-    elseif name == 'lemon' then
-        new = {
-            Primary = Color3.fromRGB(220,255,66);
-            Secondary = Color3.fromRGB(232,173,25);
-            Window1 = Color3.fromRGB(30,30,30);
-            Window2 = Color3.fromRGB(20,20,20);
-            Window3 = Color3.fromRGB(25,25,25);
-            Button1 = Color3.fromRGB(35,35,35);
-            Button2 = Color3.fromRGB(40,40,40);
-            Button3 = Color3.fromRGB(50,50,50);
-            Button4 = Color3.fromRGB(55,55,55);
-            Stroke = Color3.fromRGB(55,55,55);
-            StrokeHover = Color3.fromRGB(80,80,80);
-            Inset1 = Color3.fromRGB(18,18,18);
-            Inset2 = Color3.fromRGB(8,8,8);
-            Inset3 = Color3.fromRGB(13,13,13);
-            TextPrimary = Color3.fromRGB(255,255,255);
-            TextStroke = Color3.fromRGB(0,0,0);
-            TextDim = Color3.fromRGB(192,192,192);
-            ControlGradient1 = Color3.fromRGB(255,255,255);
-            ControlGradient2 = Color3.fromRGB(192,192,192);
-        }
-
-    elseif name == 'lime' then
-        new = {
-            Primary = Color3.fromRGB(33,255,120);
-            Secondary = Color3.fromRGB(120,255,33);
-            Window1 = Color3.fromRGB(30,30,32);
-            Window2 = Color3.fromRGB(24,24,26);
-            Window3 = Color3.fromRGB(28,28,30);
-            Button1 = Color3.fromRGB(36,36,38);
-            Button2 = Color3.fromRGB(40,40,42);
-            Button3 = Color3.fromRGB(46,46,48);
-            Button4 = Color3.fromRGB(50,50,52);
-            Stroke = Color3.fromRGB(60,60,60);
-            StrokeHover = Color3.fromRGB(110,110,110);
-            Inset1 = Color3.fromRGB(20,20,22);
-            Inset2 = Color3.fromRGB(14,14,16);
-            Inset3 = Color3.fromRGB(18,18,20);
-            TextPrimary = Color3.fromRGB(255,255,255);
-            TextStroke = Color3.fromRGB(0,0,0);
-            TextDim = Color3.fromRGB(192,192,192);
-            ControlGradient1 = Color3.fromRGB(255,255,255);
-            ControlGradient2 = Color3.fromRGB(192,192,192);
-        }
-
-    elseif name == 'winterfest' then
-        new = {
-            Primary = Color3.fromRGB(255,255,255);
-            Secondary = Color3.fromRGB(220,220,230);
-            Window1 = Color3.fromRGB(18,18,20);
-            Window2 = Color3.fromRGB(22,22,24);
-            Window3 = Color3.fromRGB(26,26,28);
-            Button1 = Color3.fromRGB(30,30,34);
-            Button2 = Color3.fromRGB(36,36,40);
-            Button3 = Color3.fromRGB(44,44,48);
-            Button4 = Color3.fromRGB(52,52,56);
-            Stroke = Color3.fromRGB(255,255,255);
-            StrokeHover = Color3.fromRGB(255,255,255);
-            Inset1 = Color3.fromRGB(16,16,18);
-            Inset2 = Color3.fromRGB(12,12,14);
-            Inset3 = Color3.fromRGB(20,20,22);
-            TextPrimary = Color3.fromRGB(255,255,255);
-            TextStroke = Color3.fromRGB(0,0,0);
-            TextDim = Color3.fromRGB(180,180,190);
-            ControlGradient1 = Color3.fromRGB(255,255,255);
-            ControlGradient2 = Color3.fromRGB(210,210,220);
-        }
-
-    elseif name == 'neverlose' then
-        new = {
-            Primary = Color3.fromRGB(0,120,255);
-            Secondary = Color3.fromRGB(0,150,255);
-            Window1 = Color3.fromRGB(12,14,18);
-            Window2 = Color3.fromRGB(8,9,12);
-            Window3 = Color3.fromRGB(16,18,22);
-            Button1 = Color3.fromRGB(18,20,25);
-            Button2 = Color3.fromRGB(25,28,34);
-            Button3 = Color3.fromRGB(0,110,230);
-            Button4 = Color3.fromRGB(0,135,255);
-            Stroke = Color3.fromRGB(30,35,45);
-            StrokeHover = Color3.fromRGB(0,140,255);
-            Inset1 = Color3.fromRGB(10,12,15);
-            Inset2 = Color3.fromRGB(6,7,10);
-            Inset3 = Color3.fromRGB(12,14,18);
-            TextPrimary = Color3.fromRGB(230,240,255);
-            TextDim = Color3.fromRGB(140,150,170);
-            TextStroke = Color3.fromRGB(0,0,0);
-            ControlGradient1 = Color3.fromRGB(0,170,255);
-            ControlGradient2 = Color3.fromRGB(0,110,210);
-        }
-
-    elseif name == 'sunset' then
-        new = {
-            Primary = Color3.fromRGB(112,60,200);
-            Secondary = Color3.fromRGB(155,90,255);
-            Window1 = Color3.fromRGB(14,12,20);
-            Window2 = Color3.fromRGB(9,8,14);
-            Window3 = Color3.fromRGB(18,16,28);
-            Button1 = Color3.fromRGB(22,20,32);
-            Button2 = Color3.fromRGB(32,28,45);
-            Button3 = Color3.fromRGB(90,55,180);
-            Button4 = Color3.fromRGB(125,70,220);
-            Stroke = Color3.fromRGB(40,30,55);
-            StrokeHover = Color3.fromRGB(145,90,255);
-            Inset1 = Color3.fromRGB(10,8,16);
-            Inset2 = Color3.fromRGB(6,5,10);
-            Inset3 = Color3.fromRGB(12,10,20);
-            TextPrimary = Color3.fromRGB(225,215,255);
-            TextDim = Color3.fromRGB(120,90,160);
-            TextStroke = Color3.fromRGB(0,0,0);
-            ControlGradient1 = Color3.fromRGB(180,140,255);
-            ControlGradient2 = Color3.fromRGB(100,60,200);
-        }
+    
+    do 
+        
+        ui.notify = function(settings, s2)
+            if (settings == ui) then
+                return error('ui.notify is not a namecall function', 2) 
+            end
+            
+            -- handle settings
+            local s_title = settings.title or 'nil'
+            local s_desc = settings.message or 'nil'
+            local s_duration = settings.duration or 2
+            
+            if (typeof(s_duration) ~= 'number') then
+                return error('expected type \'number\' for setting \'duration\'',2) 
+            end
+            
+            -- do some notifs shit
+            local startingOffset = 0 do 
+                for i, notif in ipairs(notifs) do 
+                    startingOffset += notif.size.Y.Offset + 20
+                end
+            end
+            
+            local notif = elemClasses.notif:new()
+            
+            local main = notif.instances.main
+            main.Position = UDim2.new(4, 0, 1, -startingOffset)
+            main.Parent = uiScreen['#notif-container']
+            
+            
+            notif:setTitle(s_title)
+            notif:setDesc(s_desc)
+            
+            notif.size = main.Size
+            table.insert(notifs, notif)
+        
+            tween(main, {Position = UDim2.new(1, 0, 1, -startingOffset)}, 0.3, 1)
+            task.delay(s_duration, function()
+                notif:destroy()
+                table.remove(notifs, table.find(notifs, notif))
+                
+                local mainPos = main.AbsolutePosition.Y
+                
+                for i, n in ipairs(notifs) do 
+                    local nmain = n.instances.main
+                    if (nmain.AbsolutePosition.Y > mainPos) then continue end
+                    local p = UDim2.new(1, 0, 1, nmain.Position.Y.Offset + 20 + notif.size.Y.Offset)
+                    tween(nmain, {Position = p}, 0.3, 1)
+                end
+            end)
+        end
     end
-
-    if not new then
-        warn("Theme '"..name.."' does not exist!")
-        return
+    
+    -- hotkey handler
+    do 
+        local hotkeys = ui.hotkeys
+        ui.hkCon = inputService.InputBegan:Connect(function(io, gpe) 
+            if ((not gpe) and (io.UserInputType.Name == 'Keyboard')) then
+                local kc = io.KeyCode
+                
+                for i = 1, #hotkeys do 
+                    local hotkey = hotkeys[i]
+                    if (hotkey.hotkey == kc and hotkey.set ~= time()) then
+                        local linkedControl = hotkey.linkedControl
+                        if (linkedControl) then 
+                            task.spawn(linkedControl.__hotkeyFunc, linkedControl)
+                        end
+                    end
+                end 
+            end
+        end)
     end
-
-    theme = new
 end
+
+
 
 
 return ui 
