@@ -154,41 +154,42 @@ do
                     ControlGradient1 = Color3.fromRGB(255, 255, 255);
                     ControlGradient2 = Color3.fromRGB(192, 192, 192);
                 }
-            elseif (theme == 'winterfest') then
+          elseif (theme == 'winterfest') then
     theme = {
-        -- 🎄 Основные акценты (ёлочные огни)
-        Primary   = Color3.fromRGB(0, 255, 140);  -- ярко-зелёный
-        Secondary = Color3.fromRGB(255, 45, 45);  -- тёплый красный (гирлянда)
+        -- ❄️ Ледяные акценты (кибер-лед)
+        Primary   = Color3.fromRGB(80, 180, 255);   -- ледяной неон
+        Secondary = Color3.fromRGB(120, 220, 255);  -- мягкое голубое свечение
 
-        -- ❄️ Окна — мягкий зимний тёмный фон
-        Window1 = Color3.fromRGB(28, 30, 34);
-        Window2 = Color3.fromRGB(22, 24, 27);
-        Window3 = Color3.fromRGB(26, 28, 31);
+        -- 🧊 Окна — максимально холодный тёмный лед
+        Window1 = Color3.fromRGB(18, 22, 28);  -- глубокий холод
+        Window2 = Color3.fromRGB(14, 18, 24);
+        Window3 = Color3.fromRGB(20, 24, 30);
 
-        -- 🧊 Кнопки — тёмный ледяной, с лёгким свечением
-        Button1 = Color3.fromRGB(30, 32, 36);
-        Button2 = Color3.fromRGB(34, 36, 40);
-        Button3 = Color3.fromRGB(40, 44, 48);
-        Button4 = Color3.fromRGB(45, 50, 55);
+        -- 🧊 Кнопки — строгий холод, стилевое затемнение
+        Button1 = Color3.fromRGB(22, 26, 32);
+        Button2 = Color3.fromRGB(26, 30, 36);
+        Button3 = Color3.fromRGB(30, 34, 40);
+        Button4 = Color3.fromRGB(34, 38, 46);
 
-        -- ✨ Обводки — холодное серебро
-        Stroke = Color3.fromRGB(120, 130, 140);
-        StrokeHover = Color3.fromRGB(170, 200, 220);
+        -- ✨ Stroke — яркое ледяное свечение (читовые рамки)
+        Stroke = Color3.fromRGB(70, 120, 160);       -- приглушённый лед
+        StrokeHover = Color3.fromRGB(140, 200, 255); -- яркое свечение
 
-        -- 🎁 Вставки — более глубокие зимние оттенки
-        Inset1 = Color3.fromRGB(24, 26, 29);
-        Inset2 = Color3.fromRGB(18, 20, 23);
-        Inset3 = Color3.fromRGB(22, 24, 27);
+        -- ❄️ Вставки — матовый лёд
+        Inset1 = Color3.fromRGB(16, 20, 26);
+        Inset2 = Color3.fromRGB(12, 16, 22);
+        Inset3 = Color3.fromRGB(18, 22, 28);
 
-        -- 🌟 Текст — белый снег с лёгким тёплым свечением
-        TextPrimary = Color3.fromRGB(255, 255, 255);
+        -- 🌨 Текст — чистый холодный белый
+        TextPrimary = Color3.fromRGB(235, 245, 255); -- снежный белый с легким холодом
         TextStroke  = Color3.fromRGB(0, 0, 0);
-        TextDim     = Color3.fromRGB(200, 200, 200);
+        TextDim     = Color3.fromRGB(160, 180, 200); -- холодный серо-голубой
 
-        -- ❄️ Градиенты — мягкий заснеженный блеск
-        ControlGradient1 = Color3.fromRGB(255, 255, 255);
-        ControlGradient2 = Color3.fromRGB(215, 225, 235);
+        -- ❄️ Градиенты — ледяной блеск
+        ControlGradient1 = Color3.fromRGB(240, 250, 255);
+        ControlGradient2 = Color3.fromRGB(170, 200, 230);
     }
+
 
             elseif (theme == 'neverlose') then   -- Neverlose Blue
     theme = {
