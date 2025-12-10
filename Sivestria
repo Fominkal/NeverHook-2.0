@@ -2504,7 +2504,7 @@ do
                             redSlider.Parent = inputRegion
                             
                             local sliderContainer = Instance.new('Frame') do 
-                                sliderContainer.BackgroundColor3 = theme.Button1
+                                sliderContainer.BackgroundColor3 = theme.Primary
                                 sliderContainer.Position = UDim2.fromOffset(3, 6)
                                 sliderContainer.Size = UDim2.new(1, -6, 0, 12)
                                 sliderContainer.Visible = true
