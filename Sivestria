@@ -3872,7 +3872,7 @@ do
                     menuFrame.Name = '#menuFrame'
                     menuFrame.Position = UDim2.fromOffset(1, 1)
                     menuFrame.ScrollBarImageTransparency = 0.9
-                    menuFrame.ScrollBarThickness = 1 
+                    menuFrame.ScrollBarThickness = 2 
                     menuFrame.ScrollingDirection = 'Y'
                     menuFrame.ScrollingEnabled = true
                     menuFrame.Size = UDim2.new(1, -2, 1, -2)
