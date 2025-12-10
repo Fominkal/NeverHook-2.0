@@ -5385,6 +5385,7 @@ do
                             menu.MidImage = 'rbxassetid://9416839567'
                             menu.Name = '#menu'
                             menu.Position = UDim2.fromOffset(3, 20)
+							menu.ScrollBarImageColor3 = theme.Primary
                             menu.ScrollBarImageTransparency = 0.2
                             menu.ScrollBarThickness = 2
                             menu.ScrollingDirection = 'Y'
