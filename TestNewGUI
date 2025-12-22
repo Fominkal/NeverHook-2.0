@@ -565,11 +565,11 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 	local Set = function(Value)
 		if Value then
 			Tween(Main, .2, { 
-				BackgroundColor3 = Color3.fromRGB(120, 90, 145),
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BackgroundTransparency = 0
 			})
 			Tween(Circle, .2, { 
-				BackgroundColor3 = Color3.fromRGB(185, 155, 210),
+				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				Position = UDim2.new(1, -16, 0.5, 0)
 			})
 		else
@@ -603,6 +603,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		Visible = true,
 	})
 end
+
 
 
 
