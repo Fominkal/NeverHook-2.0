@@ -554,54 +554,71 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		})
 	end
 
-	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean, Tab: Instance, Callback: any })   
-	local Toggle = Clone(Components["Toggle"])
-	local Title, Description = Options:GetLabels(Toggle)
+	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean?, Tab: Instance, Callback: (boolean) -> () })
+    local Toggle = Clone(Components["Toggle"])
+    
+    local Title, Description = Options:GetLabels(Toggle)
+    
+    local On = Toggle:FindFirstChild("Value")
+    local Main = Toggle:FindFirstChild("Main")
+    local Circle = Main and Main:FindFirstChild("Circle")
+    
+    if not (On and Main and Circle) then
+        warn("Toggle component structure is invalid!")
+        return
+    end
 
-	local On = Toggle["Value"]
-	local Main = Toggle["Main"]
-	local Circle = Main["Circle"]
-		
-	local Set = function(Value)
-		if Value then
-			Tween(Main, .2, { 
-				BackgroundColor3 = Color3.fromRGB(255, 127, 128),
-				BackgroundTransparency = 0
-			})
-			Tween(Circle, .2, { 
-				BackgroundColor3 = Color3.fromRGB(1, 1, 1),
-				Position = UDim2.new(1, -16, 0.5, 0)
-			})
-		else
-			Tween(Main, .2, { 
-				BackgroundColor3 = Color3.fromRGB(140, 140, 140),
-				BackgroundTransparency = 0.55
-			})
-			Tween(Circle, .2, { 
-				BackgroundColor3 = Color3.fromRGB(170, 170, 170),
-				Position = UDim2.new(0, 3, 0.5, 0)
-			})
-		end
-			
-		On.Value = Value
-	end 
+    local TweenService = game:GetService("TweenService")
+    local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
 
-	Connect(Toggle.MouseButton1Click, function()
-		local Value = not On.Value
-		Set(Value)
-		Settings.Callback(Value)
-	end)
+    local function Set(Value: boolean)
+        if Value then
+            TweenService:Create(Main, tweenInfo, {
+                BackgroundColor3 = Color3.fromRGB(255, 127, 128),
+                BackgroundTransparency = 0
+            }):Play()
+            
+            TweenService:Create(Circle, tweenInfo, {
+                BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                Position = UDim2.new(1, -16, 0.5, 0)
+            }):Play()
+        else
+            TweenService:Create(Main, tweenInfo, {
+                BackgroundColor3 = Color3.fromRGB(140, 140, 140),
+                BackgroundTransparency = 0.55
+            }):Play()
+            
+            TweenService:Create(Circle, tweenInfo, {
+                BackgroundColor3 = Color3.fromRGB(170, 170, 170),
+                Position = UDim2.new(0, 3, 0.5, 0)
+            }):Play()
+        end
+        
+        On.Value = Value
+    end
 
-	Animations:Component(Toggle)
-	Set(Settings.Default)
+    Toggle.MouseButton1Click:Connect(function()
+        local newValue = not On.Value
+        Set(newValue)
+        if Settings.Callback then
+            Settings.Callback(newValue)
+        end
+    end)
 
-	SetProperty(Title, { Text = Settings.Title })
-	SetProperty(Description, { Text = Settings.Description })
-	SetProperty(Toggle, {
-		Name = Settings.Title,
-		Parent = Settings.Tab,
-		Visible = true,
-	})
+    if Animations and Animations.Component then
+        Animations:Component(Toggle)
+    end
+
+    Title.Text = Settings.Title
+    Description.Text = Settings.Description or ""
+    
+    Toggle.Name = Settings.Title
+    Toggle.Parent = Settings.Tab
+    Toggle.Visible = true
+
+    Set(Settings.Default or false)
+    
+    return Toggle -- опционально, полезно для дальнейшей настройки
 end
 
 
