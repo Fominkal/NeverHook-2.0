@@ -712,73 +712,83 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 	end
 
 	function Options:AddSlider(Settings: { Title: string, Description: string, MaxValue: number, AllowDecimals: boolean, DecimalAmount: number, Tab: Instance, Callback: any }) 
-		local Slider = Clone(Components["Slider"]);
-		local Title, Description = Options:GetLabels(Slider);
 
-		local Main = Slider["Slider"];
-		local Amount = Main["Main"].Input;
-		local Slide = Main["Slide"];
-		local Fire = Slide["Fire"];
-		local Fill = Slide["Highlight"];
-		local Circle = Fill["Circle"];
+	local Slider = Clone(Components["Slider"])
 
-		local Active = false
-		local Value = 0
-		
-		local SetNumber = function(Number)
-			if Settings.AllowDecimals then
-				local Power = 10 ^ (Settings.DecimalAmount or 2)
-				Number = math.floor(Number * Power + 0.5) / Power
-			else
-				Number = math.round(Number)
-			end
-			
-			return Number
+	local Title, Description = Options:GetLabels(Slider)
+
+	local Main = Slider["Slider"]
+	local Amount = Main["Main"].Input
+	local Slide = Main["Slide"]
+	local Fire = Slide["Fire"]
+	local Fill = Slide["Highlight"]
+	local Circle = Fill["Circle"]
+
+	Slide.BackgroundColor3 = Color3.new(1,1,1)
+	Fire.BackgroundColor3 = Color3.new(1,1,1)
+	Fill.BackgroundColor3 = Color3.new(1,1,1)
+	Circle.BackgroundColor3 = Color3.new(1,1,1)
+	Amount.TextColor3 = Color3.new(1,1,1)
+
+	local Active = false
+	local Value = 0
+
+	local SetNumber = function(Number)
+		if Settings.AllowDecimals then
+			local Power = 10 ^ (Settings.DecimalAmount or 2)
+			Number = math.floor(Number * Power + 0.5) / Power
+		else
+			Number = math.round(Number)
 		end
-
-		local Update = function(Number)
-			local Scale = (Player.Mouse.X - Slide.AbsolutePosition.X) / Slide.AbsoluteSize.X			
-			Scale = (Scale > 1 and 1) or (Scale < 0 and 0) or Scale
-			
-			if Number then
-				Number = (Number > Settings.MaxValue and Settings.MaxValue) or (Number < 0 and 0) or Number
-			end
-			
-			Value = SetNumber(Number or (Scale * Settings.MaxValue))
-			Amount.Text = Value
-			Fill.Size = UDim2.fromScale((Number and Number / Settings.MaxValue) or Scale, 1)
-			Settings.Callback(Value)
-		end
-
-		local Activate = function()
-			Active = true
-
-			repeat task.wait()
-				Update()
-			until not Active
-		end
-		
-		Connect(Amount.FocusLost, function() 
-			Update(tonumber(Amount.Text) or 0)
-		end)
-
-		Connect(Fire.MouseButton1Down, Activate)
-		Connect(Services.Input.InputEnded, function(Input) 
-			if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
-				Active = false
-			end
-		end)
-
-		Fill.Size = UDim2.fromScale(Value, 1);
-		Animations:Component(Slider);
-		SetProperty(Title, { Text = Settings.Title });
-		SetProperty(Description, { Text = Settings.Description });
-		SetProperty(Slider, {
-			Name = Settings.Title,
-			Parent = Settings.Tab,
-			Visible = true,
-		})
+		return Number
 	end
+
+	local Update = function(Number)
+		local Scale = (Player.Mouse.X - Slide.AbsolutePosition.X) / Slide.AbsoluteSize.X
+		Scale = (Scale > 1 and 1) or (Scale < 0 and 0) or Scale
+
+		if Number then
+			Number = (Number > Settings.MaxValue and Settings.MaxValue) or (Number < 0 and 0) or Number
+		end
+
+		Value = SetNumber(Number or (Scale * Settings.MaxValue))
+		Amount.Text = Value
+		Fill.Size = UDim2.fromScale((Number and Number / Settings.MaxValue) or Scale, 1)
+		Settings.Callback(Value)
+	end
+
+	local Activate = function()
+		Active = true
+		repeat task.wait()
+			Update()
+		until not Active
+	end
+
+	Connect(Amount.FocusLost, function()
+		Update(tonumber(Amount.Text) or 0)
+	end)
+
+	Connect(Fire.MouseButton1Down, Activate)
+
+	Connect(Services.Input.InputEnded, function(Input)
+		if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+			Active = false
+		end
+	end)
+
+	Fill.Size = UDim2.fromScale(Value, 1)
+	Animations:Component(Slider)
+
+	SetProperty(Title, { Text = Settings.Title })
+	SetProperty(Description, { Text = Settings.Description })
+
+	SetProperty(Slider, {
+		Name = Settings.Title,
+		Parent = Settings.Tab,
+		Visible = true,
+	})
+end
+
 
 	function Options:AddParagraph(Settings: { Title: string, Description: string, Tab: Instance }) 
 		local Paragraph = Clone(Components["Paragraph"]);
