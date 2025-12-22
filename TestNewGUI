@@ -1,8 +1,3 @@
---[[
-	User Interface Library
-	Made by Late
-]]
-
 --// Connections
 local GetService = game.GetService
 local Connect = game.Loaded.Connect
