@@ -554,7 +554,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		})
 	end
 
-	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean, Tab: Instance, Callback: any })    
+	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean, Tab: Instance, Callback: any })   
 	local Toggle = Clone(Components["Toggle"])
 	local Title, Description = Options:GetLabels(Toggle)
 
@@ -569,7 +569,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 				BackgroundTransparency = 0
 			})
 			Tween(Circle, .2, { 
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundColor3 = Color3.fromRGB(185, 155, 210),
 				Position = UDim2.new(1, -16, 0.5, 0)
 			})
 		else
@@ -578,7 +578,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 				BackgroundTransparency = 0.55
 			})
 			Tween(Circle, .2, { 
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundColor3 = Color3.fromRGB(170, 170, 170),
 				Position = UDim2.new(0, 3, 0.5, 0)
 			})
 		end
@@ -603,6 +603,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		Visible = true,
 	})
 end
+
 
 
 
