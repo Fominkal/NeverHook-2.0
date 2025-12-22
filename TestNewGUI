@@ -1,3 +1,8 @@
+--[[
+	User Interface Library
+	Made by Late
+]]
+
 --// Connections
 local GetService = game.GetService
 local Connect = game.Loaded.Connect
@@ -549,7 +554,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		})
 	end
 
-	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean, Tab: Instance, Callback: any })   
+	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean, Tab: Instance, Callback: any })    
 	local Toggle = Clone(Components["Toggle"])
 	local Title, Description = Options:GetLabels(Toggle)
 
@@ -560,11 +565,11 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 	local Set = function(Value)
 		if Value then
 			Tween(Main, .2, { 
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundColor3 = Color3.fromRGB(255, 127, 128),
 				BackgroundTransparency = 0
 			})
 			Tween(Circle, .2, { 
-				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+				BackgroundColor3 = Color3.fromRGB(255, 127, 128),
 				Position = UDim2.new(1, -16, 0.5, 0)
 			})
 		else
@@ -598,8 +603,6 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		Visible = true,
 	})
 end
-
-
 
 
 	
