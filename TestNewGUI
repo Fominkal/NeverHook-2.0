@@ -569,7 +569,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 				BackgroundTransparency = 0
 			})
 			Tween(Circle, .2, { 
-				BackgroundColor3 = Color3.fromRGB(185, 155, 210),
+				BackgroundColor3 = Color3.fromRGB(1, 1, 1),
 				Position = UDim2.new(1, -16, 0.5, 0)
 			})
 		else
