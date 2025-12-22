@@ -724,8 +724,10 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 	local Fill = Slide["Highlight"]
 	local Circle = Fill["Circle"]
 
-	Slide.BackgroundColor3 = Color3.new(1,1,1)
-	Fire.BackgroundColor3 = Color3.new(1,1,1)
+	Main.BackgroundColor3 = Color3.new(0,0,0)
+	Slide.BackgroundColor3 = Color3.new(0,0,0)
+	Fire.BackgroundColor3 = Color3.new(0,0,0)
+
 	Fill.BackgroundColor3 = Color3.new(1,1,1)
 	Circle.BackgroundColor3 = Color3.new(1,1,1)
 	Amount.TextColor3 = Color3.new(1,1,1)
@@ -788,6 +790,7 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		Visible = true,
 	})
 end
+
 
 
 	function Options:AddParagraph(Settings: { Title: string, Description: string, Tab: Instance }) 
