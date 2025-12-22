@@ -554,25 +554,25 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 		})
 	end
 
-	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean, Tab: Instance, Callback: any }) 
+	function Options:AddToggle(Settings: { Title: string, Description: string, Default: boolean, Tab: Instance, Callback: any })  
 	local Toggle = Clone(Components["Toggle"])
 	local Title, Description = Options:GetLabels(Toggle)
 
 	local On = Toggle["Value"]
 	local Main = Toggle["Main"]
 	local Circle = Main["Circle"]
-
+		
 	local Set = function(Value)
 		if Value then
 			Tween(Main, .2, { BackgroundColor3 = Color3.new(1,1,1) })
-			Tween(Circle, .2, { BackgroundColor3 = Color3.new(1,1,1), Position = UDim2.new(1, -16, 0.5, 0) })
+			Tween(Circle, .2, { BackgroundColor3 = Color3.new(1,0,0), Position = UDim2.new(1, -16, 0.5, 0) })
 		else
 			Tween(Main, .2, { BackgroundColor3 = Color3.new(0,0,0) })
 			Tween(Circle, .2, { BackgroundColor3 = Color3.new(0,0,0), Position = UDim2.new(0, 3, 0.5, 0) })
 		end
-
+			
 		On.Value = Value
-	end
+	end 
 
 	Connect(Toggle.MouseButton1Click, function()
 		local Value = not On.Value
@@ -585,13 +585,13 @@ function Library:CreateWindow(Settings: { Title: string, Size: UDim2, Transparen
 
 	SetProperty(Title, { Text = Settings.Title })
 	SetProperty(Description, { Text = Settings.Description })
-
 	SetProperty(Toggle, {
 		Name = Settings.Title,
 		Parent = Settings.Tab,
 		Visible = true,
 	})
 end
+
 
 	
 	function Options:AddKeybind(Settings: { Title: string, Description: string, Tab: Instance, Callback: any }) 
