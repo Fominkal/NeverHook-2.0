@@ -2281,7 +2281,7 @@ spawn(function()
 	local FrameUpdateTable = {}
 	
 	local function HeartbeatUpdate()
-		library.fps = "-- https://discord.gg/psbtwbHCFa -- (build v1.0) "
+		library.fps = " https://discord.gg/psbtwbHCFa | build v1.0 "
 		UPPERLABEL.Text = library.fps
 	end
 
