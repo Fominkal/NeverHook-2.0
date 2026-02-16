@@ -1654,7 +1654,7 @@ function library:AddWindow(text)
 			local UIStroke = Instance.new('UIStroke');
 
 			UIStroke.Parent= color;
-			UIStroke.Color = Color3.fromRGB(52,52,52);
+			UIStroke.Color = Color3.fromRGB(221.117.56);
 			UIStroke.LineJoinMode = Enum.LineJoinMode.Round;
 			UIStroke.Thickness = 1;
 			UIStroke.Transparency = 0;
