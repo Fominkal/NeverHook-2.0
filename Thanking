@@ -2281,7 +2281,7 @@ spawn(function()
 	local FrameUpdateTable = {}
 	
 	local function HeartbeatUpdate()
-		library.fps = "-- to check fps (not mine function so yeah) --"
+		library.fps = "-- cloudxhub premium build (v1.0) --"
 		UPPERLABEL.Text = library.fps
 	end
 
