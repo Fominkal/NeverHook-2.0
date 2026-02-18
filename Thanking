@@ -520,7 +520,8 @@ function OpenedColor(text,ColourDisplay,Action,def)
 	end)
 
 
-	local UIS = uis
+	
+
 local activeInput = nil
 
 local function pointerPos(input)
@@ -530,11 +531,26 @@ local function pointerPos(input)
 	return UIS:GetMouseLocation()
 end
 
+ColourWheel.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		buttonDown = true
+		movingSlider = false
+		activeInput = input
+	end
+end)
+
+DarknessPicker.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		movingSlider = true
+		buttonDown = false
+		activeInput = input
+	end
+end)
+
 UIS.InputChanged:Connect(function(input)
 	if input.UserInputType ~= Enum.UserInputType.MouseMovement and input.UserInputType ~= Enum.UserInputType.Touch then return end
-	if activeInput and input ~= activeInput then return end
 	if not (buttonDown or movingSlider) then return end
-	if not activeInput then activeInput = input end
+	if activeInput and input ~= activeInput then return end
 
 	local pos = pointerPos(input) - Vector2.new(0, GuiService:GetGuiInset().Y)
 
@@ -545,7 +561,7 @@ UIS.InputChanged:Connect(function(input)
 
 	local distanceFromWheel = (pos - centreOfWheel).Magnitude
 
-	if distanceFromWheel <= ColourWheel.AbsoluteSize.X / 2 and buttonDown then
+	if buttonDown and distanceFromWheel <= ColourWheel.AbsoluteSize.X / 2 then
 		Picker.Position = UDim2.new(0, pos.X - ColourWheel.AbsolutePosition.X, 0, pos.Y - ColourWheel.AbsolutePosition.Y)
 	elseif movingSlider then
 		Slider.Position = UDim2.new(
@@ -560,13 +576,16 @@ UIS.InputChanged:Connect(function(input)
 end)
 
 UIS.InputEnded:Connect(function(input)
-	if input == activeInput then
-		activeInput = nil
-	end
+	if activeInput and input ~= activeInput then return end
+	if input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Touch then return end
+	buttonDown = false
+	movingSlider = false
+	activeInput = nil
 end)
 
 draggable(COLORPALLETE)
 end
+
 
 
 
