@@ -6,6 +6,8 @@ local uis = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
+local GuiService = game:GetService("GuiService")
+
 
 
 local function createInstance(class, props)
@@ -518,38 +520,54 @@ function OpenedColor(text,ColourDisplay,Action,def)
 	end)
 
 
-	uis.InputChanged:Connect(function(input)
+	local UIS = uis
+local activeInput = nil
 
-		if input.UserInputType ~= Enum.UserInputType.MouseMovement then return end
-
-
-		local mousePos = uis:GetMouseLocation() - Vector2.new(0, game:GetService("GuiService"):GetGuiInset().Y)
-
-		local centreOfWheel = Vector2.new(ColourWheel.AbsolutePosition.X + (ColourWheel.AbsoluteSize.X/2), ColourWheel.AbsolutePosition.Y + (ColourWheel.AbsoluteSize.Y/2))
-
-		local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
-
-
-		if distanceFromWheel <= ColourWheel.AbsoluteSize.X/2 and buttonDown then
-
-			Picker.Position = UDim2.new(0, mousePos.X - ColourWheel.AbsolutePosition.X, 0, mousePos.Y - ColourWheel.AbsolutePosition.Y)
-
-
-		elseif movingSlider then
-
-			Slider.Position = UDim2.new(Slider.Position.X.Scale, 0, 0, 
-				math.clamp(
-					mousePos.Y - DarknessPicker.AbsolutePosition.Y, 
-					0, 
-					DarknessPicker.AbsoluteSize.Y)
-			)	
-		end
-
-		updateColour(centreOfWheel)
-
-	end)
-	draggable(COLORPALLETE)
+local function pointerPos(input)
+	if input.UserInputType == Enum.UserInputType.Touch then
+		return input.Position
+	end
+	return UIS:GetMouseLocation()
 end
+
+UIS.InputChanged:Connect(function(input)
+	if input.UserInputType ~= Enum.UserInputType.MouseMovement and input.UserInputType ~= Enum.UserInputType.Touch then return end
+	if activeInput and input ~= activeInput then return end
+	if not (buttonDown or movingSlider) then return end
+	if not activeInput then activeInput = input end
+
+	local pos = pointerPos(input) - Vector2.new(0, GuiService:GetGuiInset().Y)
+
+	local centreOfWheel = Vector2.new(
+		ColourWheel.AbsolutePosition.X + (ColourWheel.AbsoluteSize.X / 2),
+		ColourWheel.AbsolutePosition.Y + (ColourWheel.AbsoluteSize.Y / 2)
+	)
+
+	local distanceFromWheel = (pos - centreOfWheel).Magnitude
+
+	if distanceFromWheel <= ColourWheel.AbsoluteSize.X / 2 and buttonDown then
+		Picker.Position = UDim2.new(0, pos.X - ColourWheel.AbsolutePosition.X, 0, pos.Y - ColourWheel.AbsolutePosition.Y)
+	elseif movingSlider then
+		Slider.Position = UDim2.new(
+			Slider.Position.X.Scale,
+			Slider.Position.X.Offset,
+			0,
+			math.clamp(pos.Y - DarknessPicker.AbsolutePosition.Y, 0, DarknessPicker.AbsoluteSize.Y)
+		)
+	end
+
+	updateColour(centreOfWheel)
+end)
+
+UIS.InputEnded:Connect(function(input)
+	if input == activeInput then
+		activeInput = nil
+	end
+end)
+
+draggable(COLORPALLETE)
+end
+
 
 
 local MAIN = Instance.new("Frame")
