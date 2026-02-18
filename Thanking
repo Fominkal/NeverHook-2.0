@@ -4,6 +4,9 @@ local PCR_1 = Instance.new("ScreenGui")
 local TweenService = game:GetService('TweenService');
 local uis = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
+
 
 local function createInstance(class, props)
 	local inst = Instance.new(class)
@@ -114,77 +117,87 @@ end
 
 
 
-local souid = false;
-local index = 0;
 
-local function draggable(obj,extern,parented)
-	local globals = {}
-	globals.dragging=nil
-	globals.uiorigin=nil
-	globals.morigin=nil
+
+local souid = false
+local index = 0
+
+local function isPress(input)
+	return input.UserInputType == Enum.UserInputType.MouseButton1
+		or input.UserInputType == Enum.UserInputType.Touch
+end
+
+local function isMove(input)
+	return input.UserInputType == Enum.UserInputType.MouseMovement
+		or input.UserInputType == Enum.UserInputType.Touch
+end
+
+local function draggable(obj, extern, parented)
+	local globals = {
+		dragging = false,
+		uiorigin = nil,
+		morigin = nil,
+	}
+
 	obj.InputBegan:Connect(function(input)
+		if not isPress(input) then return end
+		if souid then return end
 
-		if input.UserInputType == Enum.UserInputType.MouseButton1 and souid == false and obj.ZIndex >= index then
-			souid = true
+		-- твоя логика с ZIndex
+		if obj.ZIndex < index then
+			-- если хочешь — можно вообще убрать эту ветку, она странная
+			-- но оставлю структуру похожей
+		end
 
-			index = obj.ZIndex				
-			obj.Parent = PCR_1
+		souid = true
+		index = obj.ZIndex
+		obj.Parent = PCR_1
 
-			globals.dragging = true
-			globals.uiorigin = obj.Position
-			globals.morigin = input.Position
+		globals.dragging = true
+		globals.uiorigin = obj.Position
+		globals.morigin = input.Position
 
-			local connection 
-			connection = input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					globals.dragging = false
-					souid = false
-					connection:Disconnect()
-					if extern then
-						if isColliding(parented,obj)  then
-							obj.Position = UDim2.new(0.5,0,0.5,0)
-							obj.Parent = parented
+		local connection
+		connection = input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				globals.dragging = false
+				souid = false
+				connection:Disconnect()
 
-						end
+				if extern and parented then
+					if isColliding(parented, obj) then
+						obj.Position = UDim2.new(0.5, 0, 0.5, 0)
+						obj.Parent = parented
 					end
 				end
-			end)
-		else
-			if input.UserInputType == Enum.UserInputType.MouseButton1 and souid==false and obj.ZIndex < index then
-				obj.Parent = PCR_1
-				souid = true
-				index = obj.ZIndex
-				globals.dragging = true
-				globals.uiorigin = obj.Position
-				globals.morigin = input.Position
-				local connection 
-				connection = input.Changed:Connect(function()
-					if input.UserInputState == Enum.UserInputState.End then
-						globals.dragging = false
-						souid = false
-						connection:Disconnect()
-						if isColliding(obj,obj.Section)  then
-							obj = obj.Section
-						end
-					end
-				end)
 			end
-		end
+		end)
 	end)
-	uis.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement and globals.dragging then
-			if extern then
-				if isColliding(obj,parented) then
-					TweenService:Create(parented , TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(19, 26, 35)}):Play()	
-				else
-					TweenService:Create(parented , TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {BackgroundColor3 = Color3.fromRGB(20,20,20)}):Play()	
-				end
+
+	UserInputService.InputChanged:Connect(function(input)
+		if not globals.dragging then return end
+		if not isMove(input) then return end
+
+		if extern and parented then
+			if isColliding(obj, parented) then
+				TweenService:Create(parented, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+					BackgroundColor3 = Color3.fromRGB(19, 26, 35)
+				}):Play()
+			else
+				TweenService:Create(parented, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), {
+					BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+				}):Play()
 			end
-			local change = input.Position - globals.morigin
-			obj.Position = UDim2.new(globals.uiorigin.X.Scale,globals.uiorigin.X.Offset+change.X,globals.uiorigin.Y.Scale,globals.uiorigin.Y.Offset+change.Y)
 		end
+
+		local change = input.Position - globals.morigin
+		obj.Position = UDim2.new(
+			globals.uiorigin.X.Scale, globals.uiorigin.X.Offset + change.X,
+			globals.uiorigin.Y.Scale, globals.uiorigin.Y.Offset + change.Y
+		)
 	end)
 end
+
 
 
 
