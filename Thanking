@@ -1488,8 +1488,8 @@ function library:AddWindow(text)
 						Value = tonumber(obj4.Text)
 						obj4.Text = st
 						local SliderDef = math.clamp(tonumber(obj4.Text), Min, Max) or math.clamp(50, Min, Max)
-						local DefaultScale =  (SliderDef - Min) / (Max - Min)
-						obj6.Size = UDim2.fromScale(DefaultScale,1)
+						local DefaultScale = (SliderDef - Min) / (Max - Min)
+						obj6.Size = UDim2.fromScale(DefaultScale, 1)
 						pcall(function()
 							Action(Value)
 						end)
@@ -1501,8 +1501,8 @@ function library:AddWindow(text)
 
 						Value = tonumber(obj4.Text)
 						local SliderDef = math.clamp(tonumber(obj4.Text), Min, Max) or math.clamp(50, Min, Max)
-						local DefaultScale =  (SliderDef - Min) / (Max - Min)
-						obj6.Size = UDim2.fromScale(DefaultScale,1)
+						local DefaultScale = (SliderDef - Min) / (Max - Min)
+						obj6.Size = UDim2.fromScale(DefaultScale, 1)
 						pcall(function()
 							Action(Value)
 						end)
@@ -1514,8 +1514,8 @@ function library:AddWindow(text)
 
 						Value = tonumber(obj4.Text)
 						local SliderDef = math.clamp(tonumber(obj4.Text), Min, Max) or math.clamp(50, Min, Max)
-						local DefaultScale =  (SliderDef - Min) / (Max - Min)
-						obj6.Size = UDim2.fromScale(DefaultScale,1)
+						local DefaultScale = (SliderDef - Min) / (Max - Min)
+						obj6.Size = UDim2.fromScale(DefaultScale, 1)
 						pcall(function()
 							Action(Value)
 						end)
@@ -1524,79 +1524,161 @@ function library:AddWindow(text)
 					st = obj4.Text
 					Value = tonumber(obj4.Text)
 					local SliderDef = math.clamp(tonumber(obj4.Text), Min, Max) or math.clamp(50, Min, Max)
-					local DefaultScale =  (SliderDef - Min) / (Max - Min)
-					obj6.Size = UDim2.fromScale(DefaultScale,1)
+					local DefaultScale = (SliderDef - Min) / (Max - Min)
+					obj6.Size = UDim2.fromScale(DefaultScale, 1)
 					pcall(function()
 						Action(Value)
 					end)
 				else
-					obj4.Text = st 
+					obj4.Text = st
 					Value = tonumber(obj4.Text)
 					local SliderDef = math.clamp(tonumber(obj4.Text), Min, Max) or math.clamp(50, Min, Max)
-					local DefaultScale =  (SliderDef - Min) / (Max - Min)
-					obj6.Size = UDim2.fromScale(DefaultScale,1)
+					local DefaultScale = (SliderDef - Min) / (Max - Min)
+					obj6.Size = UDim2.fromScale(DefaultScale, 1)
 					return
 				end
 			end)
 			obj4.Changed:Connect(function()
 				if #obj4.Text > 7 then
-					obj4.Text= st 
+					obj4.Text = st
 					Value = tonumber(obj4.Text)
 					local SliderDef = math.clamp(tonumber(obj4.Text), Min, Max) or math.clamp(50, Min, Max)
-					local DefaultScale =  (SliderDef - Min) / (Max - Min)
-					obj6.Size = UDim2.fromScale(DefaultScale,1)
+					local DefaultScale = (SliderDef - Min) / (Max - Min)
+					obj6.Size = UDim2.fromScale(DefaultScale, 1)
 					return
 				end
 			end)
+
+			local dragging = false
+			local activeInput = nil
+
+			local function getX(input)
+				if input and input.Position then
+					return input.Position.X
+				end
+				if mouse and mouse.X then
+					return mouse.X
+				end
+				return 0
+			end
+
+			local function stopDrag()
+				dragging = false
+				activeInput = nil
+				if moveconnection then
+					moveconnection:Disconnect()
+					moveconnection = nil
+				end
+				if releaseconnection then
+					releaseconnection:Disconnect()
+					releaseconnection = nil
+				end
+			end
+
+			local function updateDrag(x)
+				obj4.Text = ('%0.2f'):format(Value)
+				Value = ((((tonumber(Max) - tonumber(Min)) / 244) * obj6.AbsoluteSize.X) + tonumber(Min))
+				Value = (Value)
+				pcall(function()
+					Action(Value)
+				end)
+				obj6.Size = UDim2.new(0, math.clamp(x - obj6.AbsolutePosition.X, 0, 244), 0, 13)
+			end
+
 			obj3.MouseButton1Down:Connect(function()
-				TweenService:Create(obj8 , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {Color = Color3.fromRGB(115, 115, 115)}):Play()
+				TweenService:Create(obj8, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), { Color = Color3.fromRGB(115, 115, 115) }):Play()
 				obj4.TextXAlignment = Enum.TextXAlignment.Right
 
 				Value = ((((tonumber(Max) - tonumber(Min)) / 244) * obj6.AbsoluteSize.X) + tonumber(Min)) or 0
 				Value = (Value)
-				TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(255, 255, 255)}):Play()
+				TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
 
 				obj6.Size = UDim2.new(0, math.clamp(mouse.X - obj6.AbsolutePosition.X, 0, 244), 0, 13)
+				stopDrag()
+				dragging = true
+
 				moveconnection = mouse.Move:Connect(function()
-					obj4.Text = ('%0.2f'):format(Value)
-					Value = ((((tonumber(Max) - tonumber(Min)) / 244) * obj6.AbsoluteSize.X) + tonumber(Min))
-					Value = (Value)
-					pcall(function()
-						Action(Value)
-					end)
-					obj6.Size = UDim2.new(0, math.clamp(mouse.X - obj6.AbsolutePosition.X, 0, 244), 0, 13)
+					updateDrag(mouse.X)
 				end)
-				releaseconnection = uis.InputEnded:Connect(function(Mouse)
-					if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+
+				releaseconnection = uis.InputEnded:Connect(function(input)
+					if input.UserInputType == Enum.UserInputType.MouseButton1 then
 						Value = ((((tonumber(Max) - tonumber(Min)) / 244) * obj6.AbsoluteSize.X) + tonumber(Min))
-						Value =(Value)
+						Value = (Value)
 						pcall(function()
 							Action(Value)
 						end)
 						obj6.Size = UDim2.new(0, math.clamp(mouse.X - obj6.AbsolutePosition.X, 0, 244), 0, 13)
-						moveconnection:Disconnect()
-						releaseconnection:Disconnect()
+						stopDrag()
 					end
 				end)
+
 				obj4.Text = ('%0.2f'):format(Value)
 			end)
 
+			obj3.InputBegan:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch then
+					activeInput = input
+					stopDrag()
+					dragging = true
+
+					TweenService:Create(obj8, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), { Color = Color3.fromRGB(115, 115, 115) }):Play()
+					obj4.TextXAlignment = Enum.TextXAlignment.Right
+
+					Value = ((((tonumber(Max) - tonumber(Min)) / 244) * obj6.AbsoluteSize.X) + tonumber(Min)) or 0
+					Value = (Value)
+					TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), { TextColor3 = Color3.fromRGB(255, 255, 255) }):Play()
+
+					local x = getX(input)
+					obj6.Size = UDim2.new(0, math.clamp(x - obj6.AbsolutePosition.X, 0, 244), 0, 13)
+
+					moveconnection = uis.InputChanged:Connect(function(changedInput)
+						if dragging and activeInput and changedInput == activeInput and changedInput.UserInputType == Enum.UserInputType.Touch then
+							updateDrag(getX(changedInput))
+						end
+					end)
+
+					releaseconnection = uis.InputEnded:Connect(function(endedInput)
+						if activeInput and endedInput == activeInput and endedInput.UserInputType == Enum.UserInputType.Touch then
+							Value = ((((tonumber(Max) - tonumber(Min)) / 244) * obj6.AbsoluteSize.X) + tonumber(Min))
+							Value = (Value)
+							pcall(function()
+								Action(Value)
+							end)
+							obj6.Size = UDim2.new(0, math.clamp(getX(endedInput) - obj6.AbsolutePosition.X, 0, 244), 0, 13)
+							stopDrag()
+						end
+					end)
+
+					obj4.Text = ('%0.2f'):format(Value)
+				end
+			end)
+
 			obj3.MouseButton1Up:Connect(function()
-				TweenService:Create(obj8 , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {Color = Color3.fromRGB(52, 52, 52)}):Play()
-				TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(126, 126, 126)}):Play()
+				TweenService:Create(obj8, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), { Color = Color3.fromRGB(52, 52, 52) }):Play()
+				TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), { TextColor3 = Color3.fromRGB(126, 126, 126) }):Play()
 			end)
 			obj3.MouseLeave:Connect(function()
-				TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), {TextColor3 = Color3.fromRGB(126, 126, 126)}):Play()
-				TweenService:Create(obj8 , TweenInfo.new(0.26, Enum.EasingStyle.Quad , Enum.EasingDirection.InOut), {Color = Color3.fromRGB(52, 52, 52)}):Play()
+				TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), { TextColor3 = Color3.fromRGB(126, 126, 126) }):Play()
+				TweenService:Create(obj8, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), { Color = Color3.fromRGB(52, 52, 52) }):Play()
 			end)
-			SECTIONHOLDER.Size = UDim2.fromOffset(SECTIONHOLDER.AbsoluteSize.X,  SECTION2UILIB.AbsoluteContentSize.Y + 8) + UDim2.new(0,0,0,23)
-			_PARENT.Size = UDim2.new(_PARENT.Size.X.Scale, _PARENT.Size.X.Offset , 0 ,LIST.AbsoluteContentSize.Y + 15);
-			SECTIONHOLDER:TweenSize(UDim2.fromOffset(SECTIONHOLDER.AbsoluteSize.X,  SECTION2UILIB.AbsoluteContentSize.Y + 42),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
+
+			obj3.InputEnded:Connect(function(input)
+				if input.UserInputType == Enum.UserInputType.Touch then
+					TweenService:Create(obj8, TweenInfo.new(0.26, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut), { Color = Color3.fromRGB(52, 52, 52) }):Play()
+					TweenService:Create(obj4, TweenInfo.new(0.3, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), { TextColor3 = Color3.fromRGB(126, 126, 126) }):Play()
+				end
+			end)
+
+			SECTIONHOLDER.Size = UDim2.fromOffset(SECTIONHOLDER.AbsoluteSize.X, SECTION2UILIB.AbsoluteContentSize.Y + 8) + UDim2.new(0, 0, 0, 23)
+			_PARENT.Size = UDim2.new(_PARENT.Size.X.Scale, _PARENT.Size.X.Offset, 0, LIST.AbsoluteContentSize.Y + 15)
+			SECTIONHOLDER:TweenSize(UDim2.fromOffset(SECTIONHOLDER.AbsoluteSize.X, SECTION2UILIB.AbsoluteContentSize.Y + 42), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true)
 			wait()
-			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X,  LIST.AbsoluteContentSize.Y + 15),Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true) 
-			UpdateMainSize(nil,true)
+			_PARENT:TweenSize(UDim2.fromOffset(_PARENT.AbsoluteSize.X, LIST.AbsoluteContentSize.Y + 15), Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0, true)
+			UpdateMainSize(nil, true)
 
 		end
+
 
 		function inside:AddLabel(Text)
 			Text=Text or 'Not Defined'
