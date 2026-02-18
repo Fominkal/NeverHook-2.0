@@ -4,11 +4,6 @@ local PCR_1 = Instance.new("ScreenGui")
 local TweenService = game:GetService('TweenService');
 local uis = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local GuiService = game:GetService("GuiService")
-
-
 
 local function createInstance(class, props)
 	local inst = Instance.new(class)
@@ -119,7 +114,8 @@ end
 
 
 
-
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
 
 local souid = false
 local index = 0
@@ -520,79 +516,38 @@ function OpenedColor(text,ColourDisplay,Action,def)
 	end)
 
 
-	
+	uis.InputChanged:Connect(function(input)
 
-local activeTouchId = nil
+		if input.UserInputType ~= Enum.UserInputType.MouseMovement then return end
 
-local function pointerPos(input)
-	if input.UserInputType == Enum.UserInputType.Touch then
-		return input.Position
-	end
-	return UIS:GetMouseLocation()
+
+		local mousePos = uis:GetMouseLocation() - Vector2.new(0, game:GetService("GuiService"):GetGuiInset().Y)
+
+		local centreOfWheel = Vector2.new(ColourWheel.AbsolutePosition.X + (ColourWheel.AbsoluteSize.X/2), ColourWheel.AbsolutePosition.Y + (ColourWheel.AbsoluteSize.Y/2))
+
+		local distanceFromWheel = (mousePos - centreOfWheel).Magnitude
+
+
+		if distanceFromWheel <= ColourWheel.AbsoluteSize.X/2 and buttonDown then
+
+			Picker.Position = UDim2.new(0, mousePos.X - ColourWheel.AbsolutePosition.X, 0, mousePos.Y - ColourWheel.AbsolutePosition.Y)
+
+
+		elseif movingSlider then
+
+			Slider.Position = UDim2.new(Slider.Position.X.Scale, 0, 0, 
+				math.clamp(
+					mousePos.Y - DarknessPicker.AbsolutePosition.Y, 
+					0, 
+					DarknessPicker.AbsoluteSize.Y)
+			)	
+		end
+
+		updateColour(centreOfWheel)
+
+	end)
+	draggable(COLORPALLETE)
 end
-
-local function startDrag(input, mode)
-	if input.UserInputType == Enum.UserInputType.Touch then
-		activeTouchId = input.TouchId
-	else
-		activeTouchId = nil
-	end
-	buttonDown = (mode == "wheel")
-	movingSlider = (mode == "slider")
-end
-
-ColourWheel.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		startDrag(input, "wheel")
-	end
-end)
-
-DarknessPicker.InputBegan:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-		startDrag(input, "slider")
-	end
-end)
-
-UIS.InputChanged:Connect(function(input)
-	if input.UserInputType ~= Enum.UserInputType.MouseMovement and input.UserInputType ~= Enum.UserInputType.Touch then return end
-	if not (buttonDown or movingSlider) then return end
-	if input.UserInputType == Enum.UserInputType.Touch and activeTouchId ~= nil and input.TouchId ~= activeTouchId then return end
-
-	local pos = pointerPos(input) - Vector2.new(0, GuiService:GetGuiInset().Y)
-
-	local centreOfWheel = Vector2.new(
-		ColourWheel.AbsolutePosition.X + (ColourWheel.AbsoluteSize.X / 2),
-		ColourWheel.AbsolutePosition.Y + (ColourWheel.AbsoluteSize.Y / 2)
-	)
-
-	local distanceFromWheel = (pos - centreOfWheel).Magnitude
-
-	if buttonDown and distanceFromWheel <= ColourWheel.AbsoluteSize.X / 2 then
-		Picker.Position = UDim2.new(0, pos.X - ColourWheel.AbsolutePosition.X, 0, pos.Y - ColourWheel.AbsolutePosition.Y)
-	elseif movingSlider then
-		Slider.Position = UDim2.new(
-			Slider.Position.X.Scale,
-			Slider.Position.X.Offset,
-			0,
-			math.clamp(pos.Y - DarknessPicker.AbsolutePosition.Y, 0, DarknessPicker.AbsoluteSize.Y)
-		)
-	end
-
-	updateColour(centreOfWheel)
-end)
-
-UIS.InputEnded:Connect(function(input)
-	if input.UserInputType == Enum.UserInputType.Touch then
-		if activeTouchId ~= nil and input.TouchId ~= activeTouchId then return end
-	end
-	if input.UserInputType ~= Enum.UserInputType.MouseButton1 and input.UserInputType ~= Enum.UserInputType.Touch then return end
-	buttonDown = false
-	movingSlider = false
-	activeTouchId = nil
-end)
-
-
-
 
 
 local MAIN = Instance.new("Frame")
@@ -1526,7 +1481,7 @@ function library:AddWindow(text)
 			local obj9 = Instance.new("UIGradient", obj8)
 			obj9.Color = ColorSequence.new({ColorSequenceKeypoint.new(0, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1, Color3.new(0.533333, 0.533333, 0.533333))})
 
-			local st = def or Max/2 
+			local st = def or Max/2
 			obj4.FocusLost:Connect(function(n)
 				if n then
 					if obj4.Text == '' or obj4.Text == ' ' or obj4.Text:find(' ') or obj4.Text == nil then
@@ -1642,8 +1597,6 @@ function library:AddWindow(text)
 			UpdateMainSize(nil,true)
 
 		end
-
-
 
 		function inside:AddLabel(Text)
 			Text=Text or 'Not Defined'
